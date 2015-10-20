@@ -1,0 +1,426 @@
+/*
+    CSS stylesheet for the front pafe (see "index.php")
+    Copyright (C) 2015 IpfsPics Team
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+/* Custom default button */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritence from `body` */
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+  height: 100%;
+  background-color: #333;
+}
+body {
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+  overflow: hidden;
+}
+
+/* Extra markup and styles for table-esque vertical and horizontal centering */
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%; /* For at least Firefox */
+  min-height: 100%;
+  -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+          box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+}
+.site-wrapper-inner {
+  display: table-cell;
+  vertical-align: top;
+}
+.cover-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Padding for spacing */
+.inner {
+  padding: 30px;
+}
+
+.picture-wrapper {
+  padding-top: 40px;
+}
+
+/*
+ * Header
+ */
+#mastheadBackground{
+    content:"";
+    position:absolute;
+    height:100px;
+    width:100%;
+    z-index:-1;
+    top:0;
+    left:0;
+  background:rgba(40,40,40,0.8);
+  border-bottom: 1px black solid;
+backdrop-filter: blur(5px);
+    /*filter:blur(2px);*/
+box-shadow:
+		inset 20px 0px 20px -1px #333333,
+		inset -20px 0px 20px -1px #333333;
+}
+#masthead {
+  z-index: 200;
+}
+.masthead-brand {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  display: inline;
+}
+
+.masthead-nav > li {
+  display: inline-block;
+}
+.masthead-nav > li + li {
+  margin-left: 20px;
+}
+.masthead-nav > li > a {
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff; /* IE8 proofing */
+  color: rgba(255,255,255,.75);
+  border-bottom: 2px solid transparent;
+}
+.masthead-nav > li > a:hover,
+.masthead-nav > li > a:focus {
+  background-color: transparent;
+  border-bottom-color: #a9a9a9;
+  border-bottom-color: rgba(255,255,255,.25);
+}
+.masthead-nav > .active > a,
+.masthead-nav > .active > a:hover,
+.masthead-nav > .active > a:focus {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+@media (min-width: 768px) {
+  .masthead-brand {
+    float: left;
+  }
+  .masthead-nav {
+    float: right;
+  }
+}
+
+
+/*
+ * Cover
+ */
+
+.cover {
+  padding: 0 20px;
+  margin-top: 50px;
+}
+.cover .btn-lg {
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.picture {
+  z-index: 100;
+  cursor: zoom-in;
+  box-shadow: 0 8px 6px -6px black;
+}
+.fullscreenPicture {
+  height: 99% !important;
+  width: auto !important;
+  max-width: 100% !important;
+  cursor: zoom-out !important;
+  z-index: 200;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+#pasteURLbutton {
+  visibility: hidden;
+}
+#dropoff {
+  height: 200px;
+  width: 500px;
+  max-width: 100% !important;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  border-radius: 6px;
+  border: 4px dashed grey;
+}
+#dropoff:hover {
+  border: 4px dashed white;
+}
+#dropoff img {
+  margin-top: 50px;
+  opacity: 0.5;
+}
+#dropoff span {
+  font-size: 15px;
+  margin: auto;
+  font-weight: bold;
+  color: grey;
+  text-shadow: none;
+  vertical-align: middle;
+  padding-top: 150px;
+  line-height: 10;
+  width: 90%;
+}
+
+#dropoff input[type="file"] {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    height: 90%;
+    width: 100%;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 3;
+}
+
+#aboutLink {
+    cursor: pointer;
+}
+.a2a_kit {
+  margin-right: auto;
+  margin-left: auto;
+  width: 230px;
+}
+#message-new {
+  display: none;
+  margin-top: 90px;
+}
+#message-last-upload {
+  display: none;
+  margin-top: 90px;
+}
+.dir-title {
+  font-size: 30px;
+  margin-top: 20px;
+}
+.panel {
+  width: 700px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.voteButton:focus, .voteButton:hover {
+  background-color: grey;
+  color: black !important;
+}
+.a2a_under {
+  padding-left: 50px;
+  width: 300px;
+  position: relative;
+  top: 5px;
+}
+/*
+ * About
+ */
+
+#about {
+  background-color: #A9A9A9;
+  width: 700px;
+  height: 650px;
+  overflow: hidden;
+  z-index: 100;
+  position: absolute;
+  bottom: 0px;
+  color: black;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0px 0px 10px black;
+}
+#about p {
+  padding: 20px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+#about img {
+  width: 100%;
+}
+#closeAbout {
+  padding: 20px;
+}
+
+/*
+ * Footer
+ */
+
+.mastfoot {
+  z-index: -1;
+  color: #999; /* IE8 proofing */
+  color: rgba(255,255,255,.5);
+}
+
+.mastfoot-overlay {
+  position: fixed;
+  left: 50%;
+  margin-left: -200px;
+}
+
+
+
+#aboutLink:hover {
+    color: white;
+}
+#adTwo {
+  position: relative;
+  top: 20px;
+}
+
+#googleAd {
+  margin-top: 75px;
+  margin-bottom: 90px;
+}
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px) {
+  /* Pull out the header and footer */
+  .masthead {
+    position: fixed;
+    top: 0;
+  }
+  .mastfoot {
+    position: fixed;
+    bottom: 0;
+    z-index: -1;
+  }
+  /* Start the vertical centering */
+  .site-wrapper-inner {
+    vertical-align: middle;
+  }
+  /* Handle the widths */
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 100%; /* Must be percentage or pixels for horizontal alignment */
+  }
+  .picture {
+    max-width: 660px;
+    margin:auto;
+  }
+ .dir-elem {
+    padding-bottom: 40px;
+    background-color: #333333;
+ }
+}
+
+@media (min-width: 992px) {
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 700px;
+  }
+}
+
+@media (max-device-width: 700px) {
+  html {
+  }
+  #aboutLink {
+    visibility: hidden;
+  }
+  .cover {
+    margin: auto;
+  }
+  #dropoff {
+    width: 230px; !important;
+    margin-top: 40px;
+    overflow: visible !important;
+    z-index: 2;
+  }
+  #dropoff span {
+    display: block !important;
+    position: relative;
+    top: -120px;
+    width: 200px;
+    word-wrap: break-word;
+    line-height: 2 !important;
+    z-index: 1;
+  }
+  .picture {
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative !important;
+    margin-bottom: 0px;
+  }
+  .picture-wrapper {
+    margin-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+  .dir-elem { 
+    margin-bottom: 25px;
+  } 
+  .mastfoot {
+     position: relative;
+     bottom: 10px;
+  }
+  #googleAd {
+    margin-top: 0px !important;
+    display: inline-block !important;
+    margin: auto;
+    width: 90%;
+    height: 400px;
+  } 
+  .underMenu {
+    width: 300px !important;
+    overflow: hidden;
+    margin: auto;
+  }
+  .underMenu .panel {
+    width: 250px !important;
+   }
+  .underMenuButton {
+    display: none !important;
+  }
+  .a2a_under { 
+    padding: 0px !important;
+    top: 0px;
+    margin: auto;
+   } 
+}
+
