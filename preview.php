@@ -43,6 +43,7 @@ if ( $info['hash'] ) {
 			"hash" => $hash,
 			"type" => $type
 		));
+		$x = `ipfs pin -r $hash`;
 	}
 }
 
