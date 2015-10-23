@@ -17,6 +17,12 @@ https://ipfs.io/ipfs/QmX7mna7G3BLx2UCdAHviaDastbnvLiVmM2pQ5azBa1H7D
 We saw potential in that application for an image hosting website, where you can know for sure your pictures 
 will be available forever. 
 
+# Bootstrapping
+
+You can also use our ipfs node as a bootstrap node:
+
+``` ipfs bootstrap add /ip4/45.55.151.20/tcp/4001/ipfs/QmdkJZUWnVkEc6yfptVu4LWY8nHkEnGwsxqQ233QSGj8UP ```
+
 # Licence
 
 This program is free software: you can redistribute it and/or modify
