@@ -4,7 +4,7 @@ include "var/pswd.php";
 if( !isset($_GET['hash']) ) {
 	$hash = "QmYqA8GiZ4MCeyJkERReLwGRnjSdQBx5SzjvMgiNwQZfx6";
 } else {
-	if (preg_match('/^([A-z0-9])+$/', $_GET['hash']) ) {
+	if (preg_match('/^[a-z0-9]+$/i', $_GET['hash']) ) {
 		$hash = $_GET['hash'];
 	} else {
 		exit("wrong hash");

@@ -22,7 +22,7 @@ include "var/pswd.php";
 if ( !isset($_GET['id']) or !isset($_GET['type']) ) {
 	exit("wrong params");
 } else {
-	if( preg_match('/^([A-z0-9])+$/', $_GET['id']) and preg_match('/^([A-z0-9])+$/', $_GET['type']) ) {
+	if( preg_match('/^[a-z0-9]+$/i', $_GET['id']) and preg_match('/^[a-z0-9]+$/i', $_GET['type']) ) {
 		$hash = $_GET['id'];
 		$type = $_GET['type'];
 	} else {

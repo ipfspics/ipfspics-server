@@ -19,7 +19,7 @@
 if ( !isset($_GET['id']) ) {
 	$id = "QmX6kHmFXsadTqLDMMnuV5dFqcGQAfNeKAArStw1BKqFW7";
 } else {
-	if( preg_match('/^([A-z0-9])+$/', $_GET['id']) ) {
+	if( preg_match('/^[a-z0-9]+$/i', $_GET['id']) ) {
 		$id = $_GET['id'];
 	} else {
 		// security problem
