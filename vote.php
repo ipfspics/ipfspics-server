@@ -53,5 +53,3 @@ $add->execute(array(
 	"ip" => $ip
 ));
 echo "success";
-?>
-

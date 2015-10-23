@@ -411,5 +411,4 @@ $description = sanitize($description);
 
 function sanitize ($text) {
 	return htmlspecialchars($text, ENT_QUOTES);
-} 
-?>
+}
