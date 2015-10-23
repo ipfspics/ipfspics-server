@@ -26,6 +26,3 @@ $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_p
 $randomHashes = $db->query("SELECT hash FROM hash_info WHERE sfw = 1 ORDER BY RAND() LIMIT 0,1;")->fetch();
 $hash = $randomHashes['hash'];
 header("Location: http://$host/$hash#random");
-
-
-?>

@@ -47,5 +47,3 @@ if ($hash == "") {
 }
 
 header("Location: http://$host/$hash#new"  );
-?>
-

@@ -51,6 +51,3 @@ fclose($imageContent);
 	}
 }
 echo $imageContent;
-
-?>
-

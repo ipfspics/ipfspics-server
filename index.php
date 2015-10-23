@@ -29,19 +29,19 @@
 		<!-- Custom styles for this template -->
 		<link href="cover.css" rel="stylesheet">
 
-
 		<!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-                <title>Decentralized picture hosting in ipfs</title>
+
+        <title>Decentralized picture hosting in ipfs</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-                <link rel="stylesheet" href="cover.css">
+		<link rel="stylesheet" href="cover.css">
 		<style>
 		#drop {
 		  min-height: 150px;
@@ -86,7 +86,7 @@
 								<br>
 							</input>
 						</form>
-							<a href="#" id="pasteURLbutton">or click here to paste an URL</a>
+						<a href="#" id="pasteURLbutton">or click here to paste an URL</a>
 					</div>
 
 					<div class="mastfoot">
@@ -94,6 +94,7 @@
 							<h2 id="aboutLink">	Why ipfs.pics is awesome</h2>
 						</div>
 					</div>
+
 					<div id="about">
 						<div id="closeAbout"><a href='#'>Close</a></div>
 							<div id="textAbout">
@@ -123,71 +124,69 @@
 								<a target="_blank"; href="http://ipfs.io/">ipfs.io</a>.</center>
 							</div>
 						</div>
-
-
 					</div>
 
 				</div>
-
 			</div>
-			<script>
+		</div>
+		<script>
 
-				//setCookie("uploads", "", 40);
-				uploads = getCookie("uploads").split(",");
+			//setCookie("uploads", "", 40);
+			uploads = getCookie("uploads").split(",");
 
-				function setCookie(cname, cvalue, exdays) {
-				    var d = new Date();
-				    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-				    var expires = "expires="+d.toUTCString();
-				    document.cookie = cname + "=" + cvalue + "; " + expires;
-				} 
+			function setCookie(cname, cvalue, exdays) {
+			    var d = new Date();
+			    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+			    var expires = "expires="+d.toUTCString();
+			    document.cookie = cname + "=" + cvalue + "; " + expires;
+			} 
 
-				function getCookie(cname) {
-				    var name = cname + "=";
-				    var ca = document.cookie.split(';');
-				    for(var i=0; i<ca.length; i++) {
-					var c = ca[i];
-					while (c.charAt(0)==' ') c = c.substring(1);
-					if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-				    }
-				    return "";
-				}
-				console.log(uploads);
-				if (uploads[0] != "") {
-					$("#viewNav").attr("href", "/" + uploads[uploads.length - 1] + "#view");
-				}
-				$("#dropoff_image").change(function () {
-					$("#dropoff").submit();
-					$(".cover").html("<img src='http://ipfs.pics/ipfs/QmPYVGMVjPSkz6bQaAFChBtigMb4WPGC922tLsZcAe3wvN'/>");
-				});
+			function getCookie(cname) {
+			    var name = cname + "=";
+			    var ca = document.cookie.split(';');
+			    for(var i=0; i<ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1);
+				if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+			    }
+			    return "";
+			}
+			console.log(uploads);
+			if (uploads[0] != "") {
+				$("#viewNav").attr("href", "/" + uploads[uploads.length - 1] + "#view");
+			}
+			$("#dropoff_image").change(function () {
+				$("#dropoff").submit();
+				$(".cover").html("<img src='http://ipfs.pics/ipfs/QmPYVGMVjPSkz6bQaAFChBtigMb4WPGC922tLsZcAe3wvN'/>");
+			});
 
-				$("#about").hide();
-				$("#aboutLink").click(function (event) {
-					$("#about").show("drop", {direction: "down"}, 500);
-					//event.preventDefault();
-				});
-				$("#closeAbout").click(function () {
+			$("#about").hide();
+			$("#aboutLink").click(function (event) {
+				$("#about").show("drop", {direction: "down"}, 500);
+				//event.preventDefault();
+			});
+			$("#closeAbout").click(function () {
+				$("#about").hide("drop", {direction: "down"}, 500);
+			});
+			$("#pasteURLbutton").click(function () {
+
+			});
+			$(document).on("click", function(event) {
+				if(!$(event.target).closest("#aboutLink").length && !$(event.target).closest("#about").length) {
 					$("#about").hide("drop", {direction: "down"}, 500);
-				});
-				$("#pasteURLbutton").click(function () {
+				}
+			});
+		    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		   ga('create', 'UA-65093513-1', 'auto');
+		   ga('send', 'pageview');
+		</script>
 
-				});
-				$(document).on("click", function(event) {
-					if(!$(event.target).closest("#aboutLink").length && !$(event.target).closest("#about").length) {
-						$("#about").hide("drop", {direction: "down"}, 500);
-					}
-				});
-			    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			   ga('create', 'UA-65093513-1', 'auto');
-			   ga('send', 'pageview');
-			</script>
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
 
-			<!-- Bootstrap core JavaScript
-			================================================== -->
-			<!-- Placed at the end of the document so the pages load faster -->
-
-		</body>
-	</html>
+	</body>
+</html>
