@@ -48,8 +48,8 @@ if ( $votes['hash'] ) {
 
 $add = $db->prepare("INSERT INTO votes (hash, vote_type, ip, timestamp) VALUES (:hash, :type, :ip, UNIX_TIMESTAMP())");
 $add->execute(array(
-	"hash" => $hash,
-	"type" => $type,
-	"ip" => $ip
+	"hash" => escapeshellarg($hash),
+	"type" => escapeshellarg($type),
+	"ip" => escapeshellarg($ip)
 ));
 echo "success";
