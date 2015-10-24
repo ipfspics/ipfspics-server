@@ -39,10 +39,9 @@ if ( $info['hash'] ) {
 	}
 	if($dirContent != "") {
 		$add = $db->prepare("INSERT INTO hash_info (hash, type, first_seen) VALUES (:hash, :type, UNIX_TIMESTAMP())");
-		$add->execute(array(
-			"hash" => escapeshellarg($hash),
-			"type" => escapeshellarg($type)
-		));
+		$add->bindParam(":hash", $hash);
+		$add->bindParam(":type", $type);
+		$add->execute();
 		$x = `ipfs pin -r $hash`;
 	}
 }

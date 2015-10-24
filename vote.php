@@ -16,8 +16,6 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 include "var/pswd.php";
 if ( !isset($_GET['id']) or !isset($_GET['type']) ) {
 	exit("wrong params");
@@ -47,9 +45,9 @@ if ( $votes['hash'] ) {
 } 
 
 $add = $db->prepare("INSERT INTO votes (hash, vote_type, ip, timestamp) VALUES (:hash, :type, :ip, UNIX_TIMESTAMP())");
-$add->execute(array(
-	"hash" => escapeshellarg($hash),
-	"type" => escapeshellarg($type),
-	"ip" => escapeshellarg($ip)
-));
+$add->bindParam(":hash", $hash);
+$add->bindParam(":type", $type);
+$add->bindParam(":ip", $ip);
+$add->execute();
+
 echo "success";
