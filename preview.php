@@ -222,6 +222,28 @@ $description = sanitize($description);
 							?>
 						</div>
 					</div> 					
+					<div id="ads">
+						<?php 
+						if ($isSafe) {
+
+						?>
+							<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+							<!-- preview responsive -->
+							<ins class="adsbygoogle"
+							     id="googleAd"
+							     style="display:block"
+							     data-ad-client="ca-pub-7083426718110488"
+							     data-ad-slot="7940261057"
+							     data-ad-format="auto"></ins>
+							<script>
+							if(window.matchMedia("only screen and (max-width: 760px)").matches) {
+								$("#googleAd").attr("data-ad-type", "text/image");
+							}
+							(adsbygoogle = window.adsbygoogle || []).push({});
+							</script>
+						<?php } else { ?>
+						<?php } ?>
+					</div>
 					<div class="underMenu">
 						<div class="panel panel-default">
 							<div class="panel-body">
@@ -255,46 +277,8 @@ $description = sanitize($description);
 					</div>
 					<div class="mastfoot">
 						<div id="footer" class="inner">
-							<?php
-							if (false) {
-							?>
-								<div id="adOne">
-									<p><a href="https://www.digitalocean.com/?refcode=f2c62d7220f1">Click here</a> to get 10$ of server time on DigitalOcean for free!</p>
-								</div>
-								<div id="adTwo">
-									<p>
-										Help us keep this website with as little ads as possible<br>
-										<a href="http://ipfspics.tip.me" target="_blank" type="button" class="btn btn-link btn-lg">
-											<span class="glyphicon glyphicon-btc" aria-hidden="true"></span>
-										</a>
-									</p>
-								</div>
-							<?php
-							}
-							?>
+							This is free software, you can see the <a href="https://github.com/ipfspics/server">source code</a>
 						</div>	
-					</div>
-					<div id="ads">
-						<?php 
-						if ($isSafe) {
-
-						?>
-							<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-							<!-- preview responsive -->
-							<ins class="adsbygoogle"
-							     id="googleAd"
-							     style="display:block"
-							     data-ad-client="ca-pub-7083426718110488"
-							     data-ad-slot="7940261057"
-							     data-ad-format="auto"></ins>
-							<script>
-							if(window.matchMedia("only screen and (max-width: 760px)").matches) {
-								$("#googleAd").attr("data-ad-type", "text/image");
-							}
-							(adsbygoogle = window.adsbygoogle || []).push({});
-							</script>
-						<?php } else { ?>
-						<?php } ?>
 					</div>
 				</div>
 

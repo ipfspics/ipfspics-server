@@ -85,7 +85,7 @@ body {
     position:absolute;
     height:100px;
     width:100%;
-    z-index:-1;
+    z-index:1;
     top:0;
     left:0;
   background:rgba(40,40,40,0.8);
@@ -242,8 +242,6 @@ box-shadow:
 .panel {
   width: 700px;
   margin: auto;
-  margin-top: 30px;
-  margin-bottom: 50px;
   background-color: rgba(0, 0, 0, 0.3);
 }
 .voteButton:focus, .voteButton:hover {
@@ -290,13 +288,13 @@ box-shadow:
  */
 
 .mastfoot {
-  z-index: -1;
+  z-index: 1;
   color: #999; /* IE8 proofing */
   color: rgba(255,255,255,.5);
 }
 
 .mastfoot-overlay {
-  position: fixed;
+  position: relative;
   left: 50%;
   margin-left: -200px;
 }
@@ -313,7 +311,7 @@ box-shadow:
 
 #googleAd {
   margin-top: 75px;
-  margin-bottom: 90px;
+  margin-bottom: 50px; 
 }
 /*
  * Affix and center
@@ -326,9 +324,9 @@ box-shadow:
     top: 0;
   }
   .mastfoot {
-    position: fixed;
+    position: relative;
     bottom: 0;
-    z-index: -1;
+    z-index: 1;
   }
   /* Start the vertical centering */
   .site-wrapper-inner {
@@ -399,7 +397,8 @@ box-shadow:
      bottom: 10px;
   }
   #googleAd {
-    margin-top: 0px !important;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
     display: inline-block !important;
     margin: auto;
     width: 90%;
