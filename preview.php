@@ -42,7 +42,7 @@ if ( $info['hash'] ) {
 		$add->bindParam(":hash", $hash);
 		$add->bindParam(":type", $type);
 		$add->execute();
-		$x = `ipfs pin -r $hash`;
+		$x = `curl localhost:8090/$originalFile?add`;
 	}
 }
 
