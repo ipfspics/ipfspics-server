@@ -15,7 +15,11 @@ http://ipfs.pics/QmX7mna7G3BLx2UCdAHviaDastbnvLiVmM2pQ5azBa1H7D
 https://ipfs.io/ipfs/QmX7mna7G3BLx2UCdAHviaDastbnvLiVmM2pQ5azBa1H7D
 
 We saw potential in that application for an image hosting website, where you can know for sure your pictures 
-will be available forever. 
+will be available forever.
+
+# Other software
+
+There is a [administration tool](https://github.com/ipfspics/administration-desktop) to allow you to review uploads on your ipfs.pics server.
 
 # Bootstrapping
 
