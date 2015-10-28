@@ -8,3 +8,4 @@ RewriteRule ^random rand.php
 RedirectMatch 404 \/.git
 RedirectMatch 404 \/server.js
 RedirectMatch 404 \/var
+RedirectMatch 404 \/db
