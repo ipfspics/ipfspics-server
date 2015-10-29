@@ -294,6 +294,16 @@ box-shadow:
   color: rgba(255,255,255,.5);
 }
 
+#indexfoot {
+  z-index: 1;
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  margin-left: -200px;
+  color: #999; /* IE8 proofing */
+  color: rgba(255,255,255,.5);
+}
+
 .mastfoot-overlay {
   position: relative;
   left: 50%;

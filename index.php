@@ -89,7 +89,7 @@
 						<a href="#" id="pasteURLbutton">or click here to paste an URL</a>
 					</div>
 
-					<div class="mastfoot">
+					<div id="indexfoot">
 						<div id="footer" class="inner">
 							<h2 id="aboutLink">	Why ipfs.pics is awesome</h2>
 						</div>
