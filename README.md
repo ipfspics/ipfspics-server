@@ -17,6 +17,10 @@ https://ipfs.io/ipfs/QmX7mna7G3BLx2UCdAHviaDastbnvLiVmM2pQ5azBa1H7D
 We saw potential in that application for an image hosting website, where you can know for sure your pictures 
 will be available forever.
 
+# Install 
+
+[Installation instructions](https://github.com/ipfspics/server/wiki/How-to-install-ipfs.pics-on-your-own-machine) are available in the project wiki.
+
 # Other software
 
 There is a [administration tool](https://github.com/ipfspics/administration-desktop) to allow you to review uploads on your ipfs.pics server.
