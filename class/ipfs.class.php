@@ -39,7 +39,14 @@ class IPFS {
 	}
 
 	public function ls ($hash) {
+		$ip = $this->gatewayIP;
+		$port = $this->gatewayApiPort;
 
+		$response = $this->curl("http://$ip:$port/api/v0/ls/$hash");
+
+		$data = json_decode($response, TRUE);
+
+		return $data['Objects'][0]['Links'];
 	}
 
 	public function size ($hash) {
