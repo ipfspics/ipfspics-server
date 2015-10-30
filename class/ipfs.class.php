@@ -50,7 +50,13 @@ class IPFS {
 	}
 
 	public function size ($hash) {
+		$ip = $this->gatewayIP;
+		$port = $this->gatewayApiPort;
 
+		$response = $this->curl("http://$ip:$port/api/v0/object/stat/$hash");
+		$data = json_decode($response, TRUE);
+
+		return $data['CumulativeSize'];
 	}
 
 	private function curl ($url) {
