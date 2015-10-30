@@ -370,8 +370,6 @@ $description = sanitize($description);
 						$(e.currentTarget).effect("highlight");
 					});
 				});
-				console.log(uploads);
-				console.log(document.cookie);
 			function vote (type, callback) {
 				$.ajax("/api/v1/"+type+"/"+hash).done(callback());
 			}

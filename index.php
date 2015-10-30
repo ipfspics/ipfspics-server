@@ -151,7 +151,6 @@
 			    }
 			    return "";
 			}
-			console.log(uploads);
 			if (uploads[0] != "") {
 				$("#viewNav").attr("href", "/" + uploads[uploads.length - 1] + "#view");
 			}
