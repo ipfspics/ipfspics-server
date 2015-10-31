@@ -1,5 +1,5 @@
 <?php
-include "var/pswd.php";
+include "../pswd.php";
 //ini_set('display_errors', 1);
 if( !isset($_GET['hash']) ) {
 	$hash = "QmYqA8GiZ4MCeyJkERReLwGRnjSdQBx5SzjvMgiNwQZfx6";
