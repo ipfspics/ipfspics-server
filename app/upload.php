@@ -18,13 +18,13 @@
 */
 error_reporting(0);
 
-include "var/pswd.php";
+include "../pswd.php";
 
 $errorHash = "QmW3FgNGeD46kHEryFUw1ftEUqRw254WkKxYeKaouz7DJA";
 $host = $_SERVER['HTTP_HOST'];
 
 $tmp_name = $_FILES['img']['tmp_name'];
-$uploads_dir = 'upload';
+$uploads_dir = '../upload';
 $name = date("hms"); 
 $originalFile = getcwd().DIRECTORY_SEPARATOR . $uploads_dir . "/" . $name;
 move_uploaded_file($tmp_name, $originalFile);
