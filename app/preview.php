@@ -380,6 +380,11 @@ $description = sanitize($description);
 			}
 
 			
+			$(document).keydown(function(e) {
+				if (e.which == 82) {
+					window.location = "http://<?php echo $_SERVER["HTTP_HOST"] ?>/random";
+				}
+			});
 
 			</script>
 
