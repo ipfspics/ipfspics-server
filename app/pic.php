@@ -18,11 +18,11 @@
 */
 include "class/ipfs.class.php";
 
-if ( !isset($_GET['id']) ) {
-	$id = "QmX6kHmFXsadTqLDMMnuV5dFqcGQAfNeKAArStw1BKqFW7";
+if ( !isset($_GET['hash']) ) {
+	$hash = "QmX6kHmFXsadTqLDMMnuV5dFqcGQAfNeKAArStw1BKqFW7";
 } else {
-	if( preg_match('/^[a-z0-9]+$/i', $_GET['id']) ) {
-		$id = $_GET['id'];
+	if( preg_match('/^[a-z0-9]+$/i', $_GET['hash']) ) {
+		$hash = $_GET['hash'];
 	} else {
 		// security problem
 		exit("wrong hash");
@@ -31,12 +31,12 @@ if ( !isset($_GET['id']) ) {
 
 $ipfs = new IPFS("localhost", "8080", "5001");
 
-$imageContent = $ipfs->cat($id);
+$imageContent = $ipfs->cat($hash);
 
 if ($imageContent == "") {
-	header("Location: https://ipfs.io/ipfs/$id");
+	header("Location: https://ipfs.io/ipfs/$hash");
 } else {
-	$imageSize = $ipfs->size($id);  
+	$imageSize = $ipfs->size($hash);  
 
 	if ($imageSize > 7866189) {
 //		exit("image is too big");
