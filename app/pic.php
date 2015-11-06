@@ -16,6 +16,8 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+include "class/ipfs.class.php";
+
 if ( !isset($_GET['id']) ) {
 	$id = "QmX6kHmFXsadTqLDMMnuV5dFqcGQAfNeKAArStw1BKqFW7";
 } else {
@@ -27,19 +29,18 @@ if ( !isset($_GET['id']) ) {
 	}
 }
 
-$imageSize = `curl localhost:8090/$id?size`;  
-if ($imageSize > 7866189) {
-	exit("image is too big");
-}
+$ipfs = new IPFS("localhost", "8080", "5001");
 
-$imageContent = `curl localhost:8080/ipfs/$id`;
+$imageContent = $ipfs->cat($id);
 
-if ($_GET['dl'] == 1) {
-header('Content-Type: image/jpeg');
-header('Content-Disposition: attachment;filename="test.jpg"');
-fpassthru($imageContent);
-fclose($imageContent);
+if ($imageContent == "") {
+	header("Location: https://ipfs.io/ipfs/$id");
 } else {
+	$imageSize = $ipfs->size($id);  
+
+	if ($imageSize > 7866189) {
+//		exit("image is too big");
+	}
 	session_cache_limiter('none');
 	header("Content-type: image/png");
 	header('Cache-control: max-age='.(60*60*24*365));
@@ -49,5 +50,6 @@ fclose($imageContent);
 	   header('HTTP/1.1 304 Not Modified');
 	   die();
 	}
+	
+	echo $imageContent;
 }
-echo $imageContent;
