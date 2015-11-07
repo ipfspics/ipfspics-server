@@ -1,6 +1,7 @@
 <?php
 include "../pswd.php";
-//ini_set('display_errors', 1);
+include "class/ipfs.class.php";
+
 if( !isset($_GET['hash']) ) {
 	$hash = "QmYqA8GiZ4MCeyJkERReLwGRnjSdQBx5SzjvMgiNwQZfx6";
 } else {
@@ -11,6 +12,8 @@ if( !isset($_GET['hash']) ) {
 	}
 }
 
+$ipfs = new IPFS("localhost", "8080", "5001"); 
+$hostname = $_SERVER['HTTP_HOST'];
 
 define("defaultTitle", "A picture hosted on the permanent web");
 define("defaultThumbnail", "http://ipfs.pics/ipfs/$hash");
@@ -23,15 +26,15 @@ $info = $db->query("SElECT * FROM hash_info WHERE hash='$hash'")->fetch();
 if ( $info['hash'] ) {
 	$isDir = ($info['type'] == "dir");
 	$isBanned = $info['banned'];
-	$dirContent = `curl localhost:8090/$hash?dirContent`;
+	$dirContent = $ipfs->ls($hash);
 	$isBackendWorking = True;
 	$isSafe = $info['sfw'];
 } else {
 	$isBanned = false;
 	$isSafe = false;
-	$dirContent = `curl localhost:8090/$hash?dirContent`;
+	$dirContent = $ipfs->ls($hash);
 	$isBackendWorking = $dirContent != "";
-	$isDir = ($dirContent != "empty" and count(split(" ", explode(PHP_EOL, $dirContent)[0])) > 3);
+	$isDir = ($dirContent != "empty" and count($dirContent) > 3);
 	if ($isDir) {
 		$type = "dir";
 	} else {
@@ -42,7 +45,7 @@ if ( $info['hash'] ) {
 		$add->bindParam(":hash", $hash);
 		$add->bindParam(":type", $type);
 		$add->execute();
-		$x = `curl localhost:8090/$originalFile?add`;
+		$ipfs->pinAdd($hash);
 	}
 }
 
@@ -52,23 +55,20 @@ $thumbnail = constant("defaultThumbnail");
 $description = constant("defaultDescription");
 
 if ($isDir and !$isBanned and $isBackendWorking) {
-	$size = `curl localhost:8090/$hash?size`;
-	$lines = explode(PHP_EOL, $dirContent);	
-	array_pop($lines);
-	list ($firstElementHash, $firstElementSize, $firstElementName) = split(" ", $lines[0]);
+	$size = $ipfs->size($hash);
+	$firstElementSize = $dirContent[0]['Size'];
+	$firstElementHash = $dirContent[0]['Hash'];
 	if ( $firstElementSize < 400 ) {
-		$title = `curl localhost:8080/ipfs/$firstElementHash`;
-		foreach ( $lines as $e ) {
-			list ($eHash, $eSize, $eName) = split(" ", $e);
-			if ($eSize > 400) {
-				$thumbnail = "http://ipfs.pics/ipfs/$eHash";
+		$title = $ipfs->cat($firstElementHash);
+		foreach ( $dirContent as $e ) {
+			if ($e['Size'] > 400) {
+				$thumbnail = "http://ipfs.pics/ipfs/" + $e['Hash'];
 				break;
 			}	
 		}	
-		foreach ( $lines as $e ) {
-			list ($eHash, $eSize, $eName) = split(" ", $e);
-			if ($eSize < 400 AND $eHash != $firstElementHash) { 
-				$description = `curl localhost:8080/ipfs/$eHash`;
+		foreach ( $dirContent as $e ) {
+			if ($e['Size'] < 400 AND $e['Hash'] != $firstElementHash) { 
+				$description = $ipfs->cat($e['Hash']);
 				break;
 			}	
 		}	
@@ -127,9 +127,6 @@ $description = sanitize($description);
 			body {
 				overflow-y: scroll;
 			}
-			.mastfoot {
-				/*visibility: hidden;*/
-			}
 		</style>
 	</head>
 
@@ -187,7 +184,7 @@ $description = sanitize($description);
 						<div class="picture-wrapper">
 							<?php
 							 if (!$isDir and !$isBanned and $isBackendWorking) { 
-								echo "<img src='http://ipfs.pics/ipfs/$hash' class='picture'></img>";
+								echo "<img src='http://$hostname/ipfs/$hash' class='picture'></img>";
 							} 
 
 							if ($isDir and !$isBanned and $isBackendWorking) {
@@ -195,16 +192,16 @@ $description = sanitize($description);
 								echo sanitize($dirContent);
 								echo "-->";							
 								$isFirstElement = true;
-								foreach( $lines as $i ) {
-									list( $eHash, $eSize, $eName ) = split(" ", $i);
-									if ( $eSize > 400 ) {
+								foreach( $dirContent as $e ) {
+									if ( $e['Size'] > 400 ) {
 										echo "<div class='dir-elem'>";
-										echo "<a href='http://ipfs.pics/$eHash' target='_BLANK'><img src='http://ipfs.pics/ipfs/$eHash' class='picture'></img></a>";
+										$eHash = $e['Hash'];
+										echo "<a href='http://$hostname/$eHash' target='_BLANK'><img src='http://$hostname/ipfs/$eHash' class='picture'></img></a>";
 										echo "</div>";
 									}
-									if ( $eSize < 400 ) {
+									if ( $e['Size'] < 400 ) {
 										echo "<div class='dir-elem ".($isFirstElement ? "dir-title" : "")."'>";
-										echo sanitize(`curl localhost:8080/ipfs/$eHash`);
+										echo sanitize($ipfs->cat($e['Hash']));
 										echo "</div>";
 									}
 									$isFirstElement = false;
@@ -311,7 +308,6 @@ $description = sanitize($description);
 					}
 				}
 
-				//setCookie("uploads", "", 40);
 				hash = "<?php echo $hash ?>";
 				uploads = getCookie("uploads").split(",");
 
