@@ -23,9 +23,9 @@ define("defaultDescription", "Click to see it");
 $info = $db->query("SElECT * FROM hash_info WHERE hash='$hash'")->fetch();
 
 if ( $info['hash'] ) {
-	$isDir = ($info['type'] == "dir");
-	$isBanned = $info['banned'];
 	$dirContent = $ipfs->ls($hash);
+	$isDir = ($dirContent[0]['Name'] != "");
+	$isBanned = $info['banned'];
 	$isBackendWorking = True;
 	$isSafe = $info['sfw'];
 } else {
@@ -33,7 +33,7 @@ if ( $info['hash'] ) {
 	$isSafe = false;
 	$dirContent = $ipfs->ls($hash);
 	$isBackendWorking = $dirContent != "";
-	$isDir = ($dirContent != "empty" and count($dirContent) > 3);
+	$isDir = ($dirContent[0]['Name'] != "");
 	if ($isDir) {
 		$type = "dir";
 	} else {
@@ -47,7 +47,6 @@ if ( $info['hash'] ) {
 		$ipfs->pinAdd($hash);
 	}
 }
-
 
 $title = constant("defaultTitle");
 $thumbnail = constant("defaultThumbnail");
