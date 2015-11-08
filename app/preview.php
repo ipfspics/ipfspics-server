@@ -12,14 +12,13 @@ if( !isset($_GET['hash']) ) {
 	}
 }
 
+$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
 $ipfs = new IPFS("localhost", "8080", "5001"); 
 $hostname = $_SERVER['HTTP_HOST'];
 
 define("defaultTitle", "A picture hosted on the permanent web");
 define("defaultThumbnail", "http://ipfs.pics/ipfs/$hash");
 define("defaultDescription", "Click to see it");
-
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
 
 $info = $db->query("SElECT * FROM hash_info WHERE hash='$hash'")->fetch();
 
@@ -62,7 +61,7 @@ if ($isDir and !$isBanned and $isBackendWorking) {
 		$title = $ipfs->cat($firstElementHash);
 		foreach ( $dirContent as $e ) {
 			if ($e['Size'] > 400) {
-				$thumbnail = "http://ipfs.pics/ipfs/" + $e['Hash'];
+				$thumbnail = "http://ipfs.pics/ipfs/" . $e['Hash'];
 				break;
 			}	
 		}	
@@ -76,10 +75,6 @@ if ($isDir and !$isBanned and $isBackendWorking) {
 		$title = 'A photo album hosted on the permanent web';
 		$thumbnail = "http://ipfs.pics/ipfs/$firstElementHash";
 	}
-}
-
-if (!$isDir and !$isBanned and $isBackendWorking) {
-//	$title = "Picture";
 }
 
 if ($isBanned) {
@@ -355,10 +350,6 @@ $description = sanitize($description);
 				$(".shareFields").click(function () {
 					$(this).select();
 				});
-				$("#underMenuDownload").click(function (e) {
-				//	e.preventDefault();
-				//	document.execCommand('SaveAs',true,'ipfs/' + hash);
-				});
 				$(".voteButton").click(function (e) {
 					e.preventDefault();
 					voteType = $(e.currentTarget).data("vote");
@@ -366,21 +357,21 @@ $description = sanitize($description);
 						$(e.currentTarget).effect("highlight");
 					});
 				});
-			function vote (type, callback) {
-				$.ajax("/api/v1/"+type+"/"+hash).done(callback());
-			}
-			function halfHalfAds() {
-				var randomNumb = Math.floor(Math.random()*11);
-				var randomBool = randomNumb%3;
-				return randomBool;
-			}
-
-			
-			$(document).keydown(function(e) {
-				if (e.which == 82) {
-					window.location = "http://<?php echo $_SERVER["HTTP_HOST"] ?>/random";
+				function vote (type, callback) {
+					$.ajax("/api/v1/"+type+"/"+hash).done(callback());
 				}
-			});
+				function halfHalfAds() {
+					var randomNumb = Math.floor(Math.random()*11);
+					var randomBool = randomNumb%3;
+					return randomBool;
+				}
+
+				
+				$(document).keydown(function(e) {
+					if (e.which == 82) {
+						window.location = "http://<?php echo $_SERVER["HTTP_HOST"] ?>/random";
+					}
+				});
 
 			</script>
 
