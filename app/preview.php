@@ -202,7 +202,9 @@ $description = sanitize($description);
 								}
 							}
 							if ($isBanned and $isBackendWorking) {
-								echo "This picture has been removed from our servers for legal reasons.<br \>You can still access it through your own gateway.";
+								echo "This picture has been removed from our servers for technical or legal reasons.<br>";
+								echo "We remove everything that is either not an image or illegal under canadian law. <br>";
+								echo "You can probably still access it through your own gateway.";
 								echo "<style> .underMenu { visibility: hidden !important; } </style>";
 							}
 							if (!$isBackendWorking) {
