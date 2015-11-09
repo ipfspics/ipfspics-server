@@ -35,7 +35,13 @@ class IPFS {
 	}
 
 	public function add ($content) {
+		$ip = $this->gatewayIP;
+		$port = $this->gatewayApiPort;
 
+		$req = $this->curl("http://$ip:$port/api/v0/add?stream-channels=true", $content);
+		$req = json_decode($req, TRUE);
+
+		return $req['Hash'];
 	}
 
 	public function ls ($hash) {
@@ -59,7 +65,18 @@ class IPFS {
 		return $data['CumulativeSize'];
 	}
 
-	private function curl ($url) {
+	public function pinAdd ($hash) {
+		
+		$ip = $this->gatewayIP;
+		$port = $this->gatewayApiPort;
+
+		$response = $this->curl("http://$ip:$port/api/v0/pin/add/$hash");
+		$data = json_decode($response, TRUE);
+
+		return $data;
+	}
+
+	private function curl ($url, $data = "") {
 		$ch = curl_init();
 
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -68,6 +85,12 @@ class IPFS {
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
 		 
+		if ($data != "") {
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data; boundary=a831rwxi1a3gzaorw1w2z49dlsor')); 
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "--a831rwxi1a3gzaorw1w2z49dlsor\r\nContent-Type: application/octet-stream\r\nContent-Disposition: file; \r\n\r\n" . $data . "    a831rwxi1a3gzaorw1w2z49dlsor");
+		}
+
 		$output = curl_exec($ch);
 
 		if ($output == FALSE) {
