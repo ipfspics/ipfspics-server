@@ -19,29 +19,26 @@
 error_reporting(0);
 
 include "../pswd.php";
+include "class/ipfs.class.php";
+
+$ipfs = new IPFS("localhost", "8080", "5001"); 
 
 $errorHash = "QmW3FgNGeD46kHEryFUw1ftEUqRw254WkKxYeKaouz7DJA";
 $host = $_SERVER['HTTP_HOST'];
-
-$tmp_name = $_FILES['img']['tmp_name'];
-$uploads_dir = '../upload';
-$name = date("hms"); 
-$originalFile = getcwd().DIRECTORY_SEPARATOR . $uploads_dir . "/" . $name;
-move_uploaded_file($tmp_name, $originalFile);
 
 $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
 $uploadsInLastHour = $db->query("SELECT COUNT(*) FROM hash_info WHERE first_seen > UNIX_TIMESTAMP() - 3600")->fetch();
 
 if ($uploadsInLastHour[0] < 100) {
-	$n = `convert $originalFile -resize 1080x1080\> -stripe -quality 80% $originalFile`;
 
-	$hash = explode(PHP_EOL, `curl localhost:8090/$originalFile?add`)[0];
-	$n = `rm $originalFile`;
+	$image = $_FILES['img']['tmp_name'];
+	$fo = fopen($_FILES['img']['tmp_name'], "r");
+	$imageContent =  fread($fo, filesize($image));
+	$hash = $ipfs->add($imageContent);
 } else {
 	$hash = $errorHash;
 }
 if ($hash == "") {
 	$hash = $errorHash;
 }
-
 header("Location: http://$host/$hash#new"  );
