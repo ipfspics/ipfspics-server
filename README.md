@@ -1,5 +1,5 @@
 # ipfs.pics
-[ipfs.pics](http://ipfs.pics/) is a open-source and distributed image hosting website.
+[ipfs.pics](https://ipfs.pics/) is a open-source and distributed image hosting website.
 It aims to be an alternative to non-libre image hosting websites such as imgur, flickr and others.
 
 It is based on [IPFS - the InterPlanetary File System](https://github.com/ipfs/ipfs). 
@@ -10,7 +10,7 @@ No other file will have it and if the same file is added twice then their hashes
 which means the picture can still be found on the network simply by knowing the hash, even if our website is down. 
 You can find the hash at the end of a picture URL, just like below. 
 
-http://ipfs.pics/QmX7mna7G3BLx2UCdAHviaDastbnvLiVmM2pQ5azBa1H7D
+https://ipfs.pics/QmX7mna7G3BLx2UCdAHviaDastbnvLiVmM2pQ5azBa1H7D
 
 https://ipfs.io/ipfs/QmX7mna7G3BLx2UCdAHviaDastbnvLiVmM2pQ5azBa1H7D
 
