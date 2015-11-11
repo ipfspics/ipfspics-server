@@ -20,9 +20,14 @@ include "../pswd.php";
 $host = $_SERVER['HTTP_HOST'];
 $hash = "Qma25ZSNbp9AdjrPczjzKYm7zUAdcu9jQZJXbsPiifW79M";
 
+if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+	$protocol = "https";
+} else {
+	$protocol = "http";
+}
 
 $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
 
 $randomHashes = $db->query("SELECT hash FROM hash_info WHERE sfw = 1 ORDER BY RAND() LIMIT 0,1;")->fetch();
 $hash = $randomHashes['hash'];
-header("Location: http://$host/$hash#random");
+header("Location: $protocol://$host/$hash#random");

@@ -17,7 +17,7 @@ $ipfs = new IPFS("localhost", "8080", "5001");
 $hostname = $_SERVER['HTTP_HOST'];
 
 define("defaultTitle", "A picture hosted on the permanent web");
-define("defaultThumbnail", "http://ipfs.pics/ipfs/$hash");
+define("defaultThumbnail", "https://ipfs.pics/ipfs/$hash");
 define("defaultDescription", "Click to see it");
 
 $info = $db->query("SElECT * FROM hash_info WHERE hash='$hash'")->fetch();
@@ -60,7 +60,7 @@ if ($isDir and !$isBanned and $isBackendWorking) {
 		$title = $ipfs->cat($firstElementHash);
 		foreach ( $dirContent as $e ) {
 			if ($e['Size'] > 400) {
-				$thumbnail = "http://ipfs.pics/ipfs/" . $e['Hash'];
+				$thumbnail = "https://ipfs.pics/ipfs/" . $e['Hash'];
 				break;
 			}	
 		}	
@@ -72,7 +72,7 @@ if ($isDir and !$isBanned and $isBackendWorking) {
 		}	
 	} else {
 		$title = 'A photo album hosted on the permanent web';
-		$thumbnail = "http://ipfs.pics/ipfs/$firstElementHash";
+		$thumbnail = "https://ipfs.pics/ipfs/$firstElementHash";
 	}
 }
 
@@ -99,7 +99,7 @@ $description = sanitize($description);
 		<meta name="twitter:description" content="<?php echo $description ?>">
 
 		<meta name="description" content="<?php echo $description ?>">
-		<link rel="canonical" href="http://ipfs.pics/<?php echo $hash ?>" />
+		<link rel="canonical" href="https://ipfs.pics/<?php echo $hash ?>" />
 
 		<!-- Custom styles for this template -->
 		<link href="cover.css" rel="stylesheet">
@@ -135,7 +135,7 @@ $description = sanitize($description);
 					<div id="masthead" class="masthead clearfix">
 						<div id="mastheadBackground"></div>
 						<div class="inner">
-							<h3 class="masthead-brand"><a href="/"><img src="http://ipfs.pics/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></img></a></h3>
+							<h3 class="masthead-brand"><a href="/"><img src="//ipfs.pics/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></img></a></h3>
 							<nav>
 								<ul class="nav masthead-nav">
 									<li><a href="/">Upload</a></li>
@@ -165,20 +165,20 @@ $description = sanitize($description);
 							You can also copy and paste the address:
 							<div class="input-group">
 								<span class="input-group-addon">address</span>
-							      <input type="text" id="shareUrl" class="form-control shareFields" value="http://ipfs.pics/<?php echo $hash ?>" readonly>
+							      <input type="text" id="shareUrl" class="form-control shareFields" value="https://ipfs.pics/<?php echo $hash ?>" readonly>
 							</div>
 							<br>
 							You can also use the embed code on your own page:
 							<div class="input-group">
 								<span class="input-group-addon">embed</span>
-							      <input type="text" id="embedCode" class="form-control shareFields" value="<a target='_BLANK' href='http://ipfs.pics/<?php echo $hash ?>'><img src='http://ipfs.pics/ipfs/<?php echo $hash ?>'/></a>" readonly>
+							      <input type="text" id="embedCode" class="form-control shareFields" value="<a target='_BLANK' href='https://ipfs.pics/<?php echo $hash ?>'><img src='https://ipfs.pics/ipfs/<?php echo $hash ?>'/></a>" readonly>
 							</div>
 						</div>
 						<div id="message-last-upload" class="alert alert-info" role="alert">This is the last picture you uploaded</div>
 						<div class="picture-wrapper">
 							<?php
 							 if (!$isDir and !$isBanned and $isBackendWorking) { 
-								echo "<img src='http://$hostname/ipfs/$hash' class='picture'></img>";
+								echo "<img src='//$hostname/ipfs/$hash' class='picture'></img>";
 							} 
 
 							if ($isDir and !$isBanned and $isBackendWorking) {
@@ -190,7 +190,7 @@ $description = sanitize($description);
 									if ( $e['Size'] > 400 ) {
 										echo "<div class='dir-elem'>";
 										$eHash = $e['Hash'];
-										echo "<a href='http://$hostname/$eHash' target='_BLANK'><img src='http://$hostname/ipfs/$eHash' class='picture'></img></a>";
+										echo "<a href='//$hostname/$eHash' target='_BLANK'><img src='//$hostname/ipfs/$eHash' class='picture'></img></a>";
 										echo "</div>";
 									}
 									if ( $e['Size'] < 400 ) {
@@ -249,7 +249,7 @@ $description = sanitize($description);
 										?>
 										<li id="underMenuDownload" role="presentation" class="underMenuButton disabled"><a href="#">Download</a></li>
 									<?php } else { ?>
-										<li id="underMenuDownload"  role="presentation" class="underMenuButton "><a href="http://ipfs.pics/ipfs/<?php echo $hash ?>?dl=1" target="_BLANK">Download</a></li>
+										<li id="underMenuDownload"  role="presentation" class="underMenuButton "><a href="//ipfs.pics/ipfs/<?php echo $hash ?>?dl=1" target="_BLANK">Download</a></li>
 									<?php } ?>
 									<!-- AddToAny BEGIN -->
 									<li>
@@ -370,7 +370,7 @@ $description = sanitize($description);
 				
 				$(document).keydown(function(e) {
 					if (e.which == 82) {
-						window.location = "http://<?php echo $_SERVER["HTTP_HOST"] ?>/random";
+						window.location = "//<?php echo $_SERVER["HTTP_HOST"] ?>/random";
 					}
 				});
 
