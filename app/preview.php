@@ -336,7 +336,6 @@ $description = sanitize($description);
 							uploads.push(hash);
 						}
 						setCookie("uploads", uploads, 30);
-						$("#footer").hide();
 						ga('send', 'event', 'upload', 'upload');
 					}
 					if (ancher == "view") {
