@@ -327,7 +327,7 @@ $description = sanitize($description);
 
 				if (window.location.hash) {
 					ancher = window.location.hash.substring(1);
-					history.pushState("", document.title, window.location.pathname);
+					history.replaceState("", document.title, window.location.pathname);
 					if (ancher == "new") {
 						$("#message-new").show();
 						if(uploads[0] == "") {
