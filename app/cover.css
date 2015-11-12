@@ -161,6 +161,7 @@ box-shadow:
   z-index: 100;
   cursor: zoom-in;
   box-shadow: 0 8px 6px -6px black;
+  background-color: white;
 }
 .fullscreenPicture {
   height: 99% !important;
