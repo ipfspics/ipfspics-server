@@ -21,7 +21,7 @@ class IPFS {
 	private $gatewayPort;
 	private $gatewayApiPort;
 
-	function __construct($ip, $port, $apiPort) {
+	function __construct($ip = "localhost", $port = "8080", $apiPort = "5001") {
 		$this->gatewayIP      = $ip;
 		$this->gatewayPort    = $port;
 		$this->gatewayApiPort = $apiPort;

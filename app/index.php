@@ -24,7 +24,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="p:domain_verify" content="e346f65dd772d167a00b2449567d8aa3"/>
 		<link rel="icon" href="//ipfs.pics/favicon.ico" type="image/x-icon">
-		<link rel="apple-touch-icon-precomposed" href="http://ipfs.pics/ipfs/QmYMQUcyAA8PhLTX5WtyfRU1NZogJiAjkxc5MSDmh76K6A">
+		<link rel="apple-touch-icon-precomposed" href="https://ipfs.pics/ipfs/QmYMQUcyAA8PhLTX5WtyfRU1NZogJiAjkxc5MSDmh76K6A">
 
 		<!-- Custom styles for this template -->
 		<link href="cover.css" rel="stylesheet">
@@ -34,7 +34,7 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-        <title>Decentralized picture hosting in ipfs</title>
+		<title>Decentralized picture hosting in ipfs</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
@@ -67,7 +67,7 @@
 
 					<div class="masthead clearfix">
 						<div class="inner">
-							<h3 class="masthead-brand"><img src="http://ipfs.pics/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></img></h3>
+							<h3 class="masthead-brand"><img src="//ipfs.pics/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></img></h3>
 							<nav>
 								<ul class="nav masthead-nav">
 									<li class="active"><a href="/">Upload</a></li>
@@ -111,7 +111,7 @@
 								You can find the hash at the end of a picture URL, just like below. 
 								We saw potential in that application for an image hosting website, where you can know for sure your pictures will be available forever. </p> 
 								<a target="_blank"; href="http://ipfs.pics/QmbuuLzxztp35bEcMp6VXx2y7NSm1aQTPhxRyKr3zZTgCN">
-									<img src="http://ipfs.pics/ipfs/QmcT99xWRNDAYunp7Zr8wGiwMKSgVfDpfbXw9hBtLCM4Mm" style="width:100%" />
+									<img src="https://ipfs.pics/ipfs/QmcT99xWRNDAYunp7Zr8wGiwMKSgVfDpfbXw9hBtLCM4Mm" style="width:100%" />
 								</a> 
 								<p>
 								We also run on an <a href="https://github.com/ipfspics/server">open-source stack</a> and we donate our unused processing power to 
@@ -156,7 +156,7 @@
 			}
 			$("#dropoff_image").change(function () {
 				$("#dropoff").submit();
-				$(".cover").html("<img src='http://ipfs.pics/ipfs/QmPYVGMVjPSkz6bQaAFChBtigMb4WPGC922tLsZcAe3wvN'/>");
+				$(".cover").html("<img src='//ipfs.pics/ipfs/QmPYVGMVjPSkz6bQaAFChBtigMb4WPGC922tLsZcAe3wvN'/>");
 			});
 
 			$("#about").hide();
@@ -178,7 +178,7 @@
 
 			$(document).keydown(function(e) {
 				if (e.which == 82) {
-					window.location = "http://<?php echo $_SERVER["HTTP_HOST"] ?>/random";
+					window.location = "//<?php echo $_SERVER["HTTP_HOST"] ?>/random";
 				}
 			});
 			

@@ -26,6 +26,12 @@ $ipfs = new IPFS("localhost", "8080", "5001");
 $errorHash = "QmW3FgNGeD46kHEryFUw1ftEUqRw254WkKxYeKaouz7DJA";
 $host = $_SERVER['HTTP_HOST'];
 
+if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+	$protocol = "https";
+} else {
+	$protocol = "http";
+}
+
 $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
 $uploadsInLastHour = $db->query("SELECT COUNT(*) FROM hash_info WHERE first_seen > UNIX_TIMESTAMP() - 3600")->fetch();
 
@@ -41,4 +47,4 @@ if ($uploadsInLastHour[0] < 100) {
 if ($hash == "") {
 	$hash = $errorHash;
 }
-header("Location: http://$host/$hash#new"  );
+header("Location: $protocol://$host/$hash#new"  );
