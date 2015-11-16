@@ -16,6 +16,7 @@ CREATE TABLE votes (hash VARCHAR(46),
                     ip VARCHAR(45) NOT NULL,
                     timestamp INT(11) NOT NULL
 );
+CREATE INDEX hash_index ON votes (hash);
 CREATE TRIGGER correct_hash BEFORE INSERT ON hash_info
         FOR EACH ROW
                 BEGIN
@@ -25,3 +26,4 @@ CREATE TRIGGER correct_hash BEFORE INSERT ON hash_info
                         END IF;
                 END;
 ||
+DELIMITER ;
