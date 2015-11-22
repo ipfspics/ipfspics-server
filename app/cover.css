@@ -262,7 +262,7 @@ box-shadow:
 
 #about {
   background-color: #A9A9A9;
-  width: 700px;
+  width: 900px;
   height: 650px;
   overflow: hidden;
   z-index: 100;
@@ -351,7 +351,7 @@ box-shadow:
     width: 100%; /* Must be percentage or pixels for horizontal alignment */
   }
   .picture {
-    max-width: 660px;
+    max-width: 860px;
     margin:auto;
   }
  .dir-elem {
@@ -363,7 +363,7 @@ box-shadow:
   .masthead,
   .mastfoot,
   .cover-container {
-    width: 700px;
+    width: 900px;
   }
 }
 
