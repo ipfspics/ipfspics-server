@@ -28,6 +28,18 @@ if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
 
 $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
 
-$randomHashes = $db->query("SELECT hash FROM hash_info WHERE sfw = 1 ORDER BY RAND() LIMIT 0,1;")->fetch();
-$hash = $randomHashes['hash'];
+$hashesByScore = $db->query("SELECT hash p_hash, ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash) - (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash)) score FROM hash_info WHERE sfw = 1 GROUP BY hash ORDER BY score DESC;")->fetchAll();
+$worstScore = (int) $hashesByScore[sizeof($hashesByScore) - 1]['score'];
+
+// Takes a random number between 1 and the equivalent of the sum of all scores when the values are shifted up so the lowest one is equal to zero.
+$randomTrigger = mt_rand(1, ((int) array_sum(array_column($hashesByScore, 'score')) + abs($worstScore) * sizeof($hashesByScore)) );
+
+foreach ($hashesByScore as $e) {
+	$randomTrigger -= $e['score'] + abs($worstScore);
+	if ($randomTrigger <= 0) {
+        	$hash = $e['p_hash'];
+		break;
+	}
+}
+
 header("Location: $protocol://$host/$hash#random");
