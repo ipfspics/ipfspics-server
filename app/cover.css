@@ -322,6 +322,9 @@ box-shadow:
 }
 
 #googleAd {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 75px;
   margin-bottom: 50px; 
 }
@@ -351,7 +354,7 @@ box-shadow:
     width: 100%; /* Must be percentage or pixels for horizontal alignment */
   }
   .picture {
-    max-width: 860px;
+    max-width: 100%;
     margin:auto;
   }
  .dir-elem {
