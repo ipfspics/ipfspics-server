@@ -117,11 +117,16 @@ $description = sanitize($description);
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
                 <link rel="stylesheet" href="cover.css">
+		<script src="common.js"></script>
 		<style>
 			body {
 				overflow-y: scroll;
 			}
 		</style>
+		<script>
+
+				hash = "<?php echo $hash ?>";
+		</script>
 	</head>
 
 	<body>
@@ -133,7 +138,7 @@ $description = sanitize($description);
 				<div class="cover-container">
 
 					<div id="masthead" class="masthead clearfix">
-						<div id="mastheadBackground"></div>
+						<div id="mastheadBackground" style="display: none;" ></div>
 						<div class="inner">
 							<h3 class="masthead-brand"><a href="/"><img src="//ipfs.pics/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></img></a></h3>
 							<nav>
@@ -287,8 +292,6 @@ $description = sanitize($description);
 			   ga('send', 'pageview');
 
 
-				var isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
-				$("#mastheadBackground").hide();
 				if (!isMobile) {
 					$(document).scroll(function(){
 						if($(this).scrollTop() > 40) {   
@@ -304,26 +307,6 @@ $description = sanitize($description);
 					}
 				}
 
-				hash = "<?php echo $hash ?>";
-				uploads = getCookie("uploads").split(",");
-
-				function setCookie(cname, cvalue, exdays) {
-				    var d = new Date();
-				    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-				    var expires = "expires="+d.toUTCString();
-				    document.cookie = cname + "=" + cvalue + "; " + expires;
-				} 
-
-				function getCookie(cname) {
-				    var name = cname + "=";
-				    var ca = document.cookie.split(';');
-				    for(var i=0; i<ca.length; i++) {
-					var c = ca[i];
-					while (c.charAt(0)==' ') c = c.substring(1);
-					if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-				    }
-				    return "";
-				}
 
 				if (window.location.hash) {
 					ancher = window.location.hash.substring(1);
@@ -346,34 +329,8 @@ $description = sanitize($description);
 						}
 					}
 				}
-
-				$(".shareFields").click(function () {
-					$(this).select();
-				});
-
-				$(".voteButton").click(function (e) {
-					e.preventDefault();
-					voteType = $(e.currentTarget).data("vote");
-					vote(voteType, function () { 
-						$(e.currentTarget).effect("highlight");
-					});
-				});
-
-				function vote (type, callback) {
-					$.ajax("/api/v1/"+type+"/"+hash).done(callback());
-				}
-				
-				$(document).keydown(function(e) {
-					if (e.which == 82) {
-						window.location = "//<?php echo $_SERVER["HTTP_HOST"] ?>/random";
-					}
-				});
-
 			</script>
 
-			<!-- Bootstrap core JavaScript
-			================================================== -->
-		
 	</body>
 </html>
 <?php

@@ -54,6 +54,7 @@
 		  z-index: 10 !important;
 		}
 		</style>
+		<script src="common.js"></script>
 		<meta name="description" content="Decentralized image hosting website. Never lose your images by uploading them on ipfs.">
 	</head>
 
@@ -131,26 +132,6 @@
 		</div>
 		<script>
 
-			//setCookie("uploads", "", 40);
-			uploads = getCookie("uploads").split(",");
-
-			function setCookie(cname, cvalue, exdays) {
-			    var d = new Date();
-			    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-			    var expires = "expires="+d.toUTCString();
-			    document.cookie = cname + "=" + cvalue + "; " + expires;
-			} 
-
-			function getCookie(cname) {
-			    var name = cname + "=";
-			    var ca = document.cookie.split(';');
-			    for(var i=0; i<ca.length; i++) {
-				var c = ca[i];
-				while (c.charAt(0)==' ') c = c.substring(1);
-				if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-			    }
-			    return "";
-			}
 			if (uploads[0] != "") {
 				$("#viewNav").attr("href", "/" + uploads[uploads.length - 1] + "#view");
 			}
@@ -176,11 +157,6 @@
 				}
 			});
 
-			$(document).keydown(function(e) {
-				if (e.which == 82) {
-					window.location = "//<?php echo $_SERVER["HTTP_HOST"] ?>/random";
-				}
-			});
 			
 		    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -190,9 +166,6 @@
 		   ga('send', 'pageview');
 		</script>
 
-		<!-- Bootstrap core JavaScript
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
 
 	</body>
 </html>
