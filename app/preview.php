@@ -350,6 +350,7 @@ $description = sanitize($description);
 				$(".shareFields").click(function () {
 					$(this).select();
 				});
+
 				$(".voteButton").click(function (e) {
 					e.preventDefault();
 					voteType = $(e.currentTarget).data("vote");
@@ -357,15 +358,10 @@ $description = sanitize($description);
 						$(e.currentTarget).effect("highlight");
 					});
 				});
+
 				function vote (type, callback) {
 					$.ajax("/api/v1/"+type+"/"+hash).done(callback());
 				}
-				function halfHalfAds() {
-					var randomNumb = Math.floor(Math.random()*11);
-					var randomBool = randomNumb%3;
-					return randomBool;
-				}
-
 				
 				$(document).keydown(function(e) {
 					if (e.which == 82) {
