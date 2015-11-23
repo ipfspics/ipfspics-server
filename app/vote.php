@@ -41,13 +41,25 @@ if ( $info['hash'] ) {
 $votes = $db->query("SElECT * FROM votes WHERE hash='$hash' AND ip='$ip'")->fetch();
 
 if ( $votes['hash'] ) {
-	exit("already voted");
-} 
+	//already voted, we change the vote if one is not spamming
+	if ($votes['vote_type'] != $type) {
+		$add = $db->prepare("UPDATE votes SET vote_type = :type, timestamp = UNIX_TIMESTAMP() WHERE ip = :ip AND hash = :hash");
+		$add->bindParam(":hash", $hash);
+		$add->bindParam(":type", $type);
+		$add->bindParam(":ip", $ip);
+		$add->execute();
+	} 
 
-$add = $db->prepare("INSERT INTO votes (hash, vote_type, ip, timestamp) VALUES (:hash, :type, :ip, UNIX_TIMESTAMP())");
-$add->bindParam(":hash", $hash);
-$add->bindParam(":type", $type);
-$add->bindParam(":ip", $ip);
-$add->execute();
+	echo "success";	
 
-echo "success";
+} else {
+
+	$add = $db->prepare("INSERT INTO votes (hash, vote_type, ip, timestamp) VALUES (:hash, :type, :ip, UNIX_TIMESTAMP())");
+	$add->bindParam(":hash", $hash);
+	$add->bindParam(":type", $type);
+	$add->bindParam(":ip", $ip);
+	$add->execute();
+
+	echo "success";
+}
+
