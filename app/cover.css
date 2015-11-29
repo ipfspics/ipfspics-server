@@ -432,7 +432,7 @@ box-shadow:
   .underMenu .panel {
     width: 250px !important;
    }
-  .underMenuButton {
+  .voteScore, .underMenuButton {
     display: none !important;
   }
   .a2a_under { 
