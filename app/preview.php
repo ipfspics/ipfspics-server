@@ -83,6 +83,11 @@ if ($isBanned) {
 
 $title = sanitize($title);
 $description = sanitize($description);
+
+
+
+$score = $db->query("SELECT ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = '$hash')-(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = '$hash')) score;")->fetch();
+$score = $score['score'];
 ?>
 <html lang="en">
 	<head>
@@ -246,9 +251,10 @@ $description = sanitize($description);
 						<div class="panel panel-default">
 							<div class="panel-body">
 								<ul class="nav nav-pills">
-									<li role="presentation" class="underMenuButton "><a class="voteButton" data-vote="upvote" href="#">Upvote</a></li>
-									<li role="presentation" class="underMenuButton "><a class="voteButton" data-vote="downvote" href="#">Downvote</a></li>
-									<li role="presentation" class="underMenuButton "><a class="voteButton" data-vote="report" href="#">Report</a></li>
+									<li role="presentation" class="underMenuButton "><a class="voteButton" data-hash="<?php echo $hash; ?>" data-vote="upvote" href="#"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a></li>
+									<li role="presentation" class="voteScore" data-hash="<?php echo $hash; ?>"><span class="badge"><?php echo $score; ?></span></li>
+									<li role="presentation" class="underMenuButton "><a class="voteButton" data-hash="<?php echo $hash; ?>" data-vote="downvote" href="#"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
+									<li role="presentation" class="underMenuButton "><a class="voteButton" data-hash="<?php echo $hash; ?>" data-vote="report" href="#">Report</a></li>
 									<?php 
 									if ($isDir) {
 										?>

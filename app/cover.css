@@ -246,9 +246,14 @@ box-shadow:
   margin: auto;
   background-color: rgba(0, 0, 0, 0.3);
 }
-.voteButton:focus, .voteButton:hover {
+.voteButton:hover {
   background-color: grey;
   color: black !important;
+}
+.voteScore {
+  margin-top: 7px;
+  margin-left: 15px !important;
+  margin-right: 15px;
 }
 .a2a_under {
   padding-left: 50px;
