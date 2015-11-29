@@ -433,7 +433,7 @@ box-shadow:
     margin: auto;
   }
   .underMenu .panel {
-    width: 250px !important;
+    width: 300px !important;
    }
   .voteScore, .underMenuButton {
     display: none !important;
