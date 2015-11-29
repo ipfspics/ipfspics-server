@@ -121,6 +121,7 @@ $score = $score['score'];
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
                 <link rel="stylesheet" href="cover.css">
 		<script src="common.js"></script>
 		<style>
@@ -158,18 +159,12 @@ $score = $score['score'];
 
 					<div class="inner cover">
 						<div id="message-new" class="alert alert-success" role="alert">
-							<b>Congratulations</b> you uploaded a picture, you can share it now
-							<!-- AddToAny BEGIN -->
-							<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-							<a class="a2a_dd" href="https://www.addtoany.com/share_save"></a>
-							<a class="a2a_button_reddit"></a>
-							<a class="a2a_button_facebook"></a>
-							<a class="a2a_button_email"></a>
-							<a class="a2a_button_twitter"></a>
-							<a class="a2a_button_pinterest"></a>
-							</div>
-							<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
-							<!-- AddToAny END -->
+							<b>Congratulations</b> you uploaded a picture, you can share it now <br>
+							<a class="btn btn-primary btn-sm btn-social" href="http://www.facebook.com/sharer.php?u=https://ipfs.pics/<?php echo $hash; ?>" target="_BLANK"><i class="fa fa-facebook fa-2x"></i></a>
+							<a class="btn btn-info btn-sm btn-social" href="https://twitter.com/intent/tweet?url=https://ipfs.pics/<?php echo $hash; ?>&via=IpfsPics" target="_BLANK"><i class="fa fa-twitter fa-2x"></i></a>
+							<a class="btn btn-default btn-sm btn-social" href="http://www.pinterest.com/pin/find/?url=https://ipfs.pics/<?php echo $hash; ?>" target="_BLANK"><i class="fa fa-pinterest fa-2x" style="color:red;"></i></a>
+							<a class="btn btn-default btn-sm btn-social" href="http://reddit.com/submit?url=https://ipfs.pics/<?php echo $hash; ?>" target="_BLANK"><i class="fa fa-reddit fa-2x" style="color:black;"></i></a>
+							<a class="btn btn-danger btn-sm btn-social" href="http://plus.google.com/share?url=https://ipfs.pics/<?php echo $hash; ?>" target="_BLANK"><i class="fa fa-google-plus fa-2x" ></i></a>
 
 							<br>
 							You can also copy and paste the address:
@@ -262,19 +257,13 @@ $score = $score['score'];
 									<?php } else { ?>
 										<li id="underMenuDownload"  role="presentation" class="underMenuButton "><a href="//ipfs.pics/ipfs/<?php echo $hash ?>?dl=1" target="_BLANK">Download</a></li>
 									<?php } ?>
-									<!-- AddToAny BEGIN -->
-									<li>
-										<div class="a2a_under a2a_kit a2a_kit_size_32 a2a_default_style">
-											<a href="https://www.addtoany.com/share"></a>
-											<a class="a2a_button_facebook"></a>
-											<a class="a2a_button_twitter"></a>
-											<a class="a2a_button_pinterest"></a>
-											<a class="a2a_button_pocket"></a>
-											<a class="a2a_button_reddit"></a>
-											<a class="a2a_button_tumblr"></a>
-										</div>
-									</li>
-									<!-- AddToAny END -->
+
+									<a class="btn btn-primary btn-sm btn-social" href="http://www.facebook.com/sharer.php?u=https://ipfs.pics/<?php echo $hash; ?>" target="_BLANK"><i class="fa fa-facebook fa-2x"></i></a>
+									<a class="btn btn-info btn-sm btn-social" href="https://twitter.com/intent/tweet?url=https://ipfs.pics/<?php echo $hash; ?>&via=IpfsPics" target="_BLANK"><i class="fa fa-twitter fa-2x"></i></a>
+									<a class="btn btn-default btn-sm btn-social" href="http://www.pinterest.com/pin/find/?url=https://ipfs.pics/<?php echo $hash; ?>" target="_BLANK"><i class="fa fa-pinterest fa-2x" style="color:red;"></i></a>
+									<a class="btn btn-default btn-sm btn-social" href="http://reddit.com/submit?url=https://ipfs.pics/<?php echo $hash; ?>" target="_BLANK"><i class="fa fa-reddit fa-2x" style="color:black;"></i></a>
+									<a class="btn btn-danger btn-sm btn-social" href="http://plus.google.com/share?url=https://ipfs.pics/<?php echo $hash; ?>" target="_BLANK"><i class="fa fa-google-plus fa-2x" ></i></a>
+
 								</ul>
 							</div>
 						</div>

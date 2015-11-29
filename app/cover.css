@@ -33,6 +33,9 @@ a:hover {
   border: 1px solid #fff;
 }
 
+.btn-social {
+  width: 50px;
+}
 
 /*
  * Base structure
