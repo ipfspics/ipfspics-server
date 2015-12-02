@@ -1,4 +1,23 @@
 <?php
+/*
+    Browse popular pictures on your ipfs.pics server
+    Copyright (C) 2015  IpfsPics Team
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+error_reporting(0);
+
 include "../pswd.php";
 include "class/ipfs.class.php";
 
@@ -7,7 +26,9 @@ $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_p
 $ipfs = new IPFS("localhost", "8080", "5001"); 
 $hostname = $_SERVER['HTTP_HOST'];
 
-$picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash) + 1.9208) / (   (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash))   - 1.96 * SQRT(   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash) * (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash)) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash)) + 0.9604) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash))) /  (1+3.8416 / ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash))) AS lower_bound FROM hash_info WHERE first_seen > UNIX_TIMESTAMP() - 11209600 AND type != 'dir' HAVING (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash)+(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash) > 0 ORDER BY lower_bound DESC;");
+//Pictures are ordered by their lower bound of Wilson score confidence interval for a Bernoulli parameter
+//see http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
+$picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + 1.9208) / (   (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200))   - 1.96 * SQRT(   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) * (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200)) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200)) + 0.9604) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200))) /  (1+3.8416 / ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200))) AS lower_bound, (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200)+(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) AS score FROM hash_info WHERE type != 'dir' HAVING (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200)+(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) > 0 ORDER BY lower_bound DESC LIMIT 15;");
 
 ?>
 <html lang="en">
@@ -71,7 +92,7 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 
 					<div class="inner cover">
 						<?php
-						$turnForAds = 3;
+						$turnForAds = 5;
 						while ($pic = $picsToDisplay->fetch()) {
 							$hash = $pic['p_hash'];
 							?>
@@ -83,7 +104,7 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 									<div class="panel-body">
 										<ul class="nav nav-pills">
 											<li role="presentation" class="underMenuButton "><a class="voteButton" data-hash="<?php echo $hash; ?>" data-vote="upvote" href="#" accesskey="U"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a></li>
-											<li role="presentation" class="voteScore" data-hash="<?php echo $hash; ?>"><span class="badge"><?php echo $score; ?></span></li>
+											<li role="presentation" class="voteScore" data-hash="<?php echo $hash; ?>"><span class="badge"><?php echo $pic['score']; ?></span></li>
 											<li role="presentation" class="underMenuButton "><a class="voteButton" data-hash="<?php echo $hash; ?>" data-vote="downvote" href="#" accesskey="D"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
 											<li role="presentation" class="underMenuButton "><a class="voteButton" data-hash="<?php echo $hash; ?>" data-vote="report" href="#">Report</a></li>
 											<li id="underMenuPermalink"  role="presentation" class="underMenuButton "><a href="//ipfs.pics/<?php echo $hash ?>" target="_BLANK">Permalink</a></li>
@@ -100,7 +121,7 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 							</div>
 							<?php
 							$turnForAds++;
-							$turnForAds = $turnForAds % 3;
+							$turnForAds = $turnForAds % 5;
 							if ($turnForAds == 0) {
 								?>
 								<br>
