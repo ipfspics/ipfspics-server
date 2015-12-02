@@ -151,7 +151,7 @@ $score = $score['score'];
 								<ul class="nav masthead-nav">
 									<li><a href="/">Upload</a></li>
 									<li><a href="/random">Random</a></li>
-									<li class="active"><a href="#">View</a></li>
+									<li><a href="/trending">Trending</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -288,13 +288,6 @@ $score = $score['score'];
 
 
 				if (!isMobile) {
-					$(document).scroll(function(){
-						if($(this).scrollTop() > 40) {   
-							$('#mastheadBackground').show("slide", {direction: "up"}, 300);
-						} else {
-							$('#mastheadBackground').hide("slide", {direction: "up"}, 200);
-						}
-					});
 					if (<?php echo var_export(!$isDir) ?>) {
 						$(".picture").click(function () {
 							$(this).toggleClass("fullscreenPicture");

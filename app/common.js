@@ -13,7 +13,7 @@ $( document ).ready(function () {
 	$(".voteButton").click(function (e) {
 		e.preventDefault();
 		voteType = $(e.currentTarget).data("vote");
-		vote(voteType, function () { 
+		vote($(this).data("hash"), voteType, function () { 
 			updateVoteButtonColor();	
 			if (voteType == "upvote") {
 				change = 1;
@@ -38,6 +38,17 @@ $( document ).ready(function () {
 		}
 	});
 
+	if (!isMobile) {
+		$(document).scroll(function(){
+			if($(this).scrollTop() > 40) {   
+				$('#mastheadBackground').show("slide", {direction: "up"}, 300);
+			} else {
+				$('#mastheadBackground').hide("slide", {direction: "up"}, 200);
+			}
+		});
+	}
+
+
 
 	updateVoteButtonColor();
 });
@@ -60,7 +71,7 @@ function getCookie(cname) {
     return "";
 }
 
-function vote (type, callback) {
+function vote (hash, type, callback) {
 	$.ajax("/api/v1/"+type+"/"+hash).done(function () { 
 
 		votePosition = $.inArray(hash, votes);

@@ -1,6 +1,4 @@
 <?php
-error_reporting(1);
-
 include "../pswd.php";
 include "class/ipfs.class.php";
 
@@ -20,14 +18,6 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 		<link rel="icon" href="//ipfs.pics/favicon.ico" type="image/x-icon">
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:site" content="@IpfsPics">
-		<meta property="og:image" content="<?php echo $thumbnail ?>">
-		<meta name="twitter:title" content="<?php echo $title ?>">
-		<link rel="image_src" href="<?php echo $thumbnail ?>"/>
-		<meta name="twitter:image" content="<?php echo $thumbnail ?>">
-		<meta name="twitter:description" content="<?php echo $description ?>">
-
-		<meta name="description" content="<?php echo $description ?>">
-		<link rel="canonical" href="https://ipfs.pics/<?php echo $hash ?>" />
 
 		<!-- Custom styles for this template -->
 		<link href="cover.css" rel="stylesheet">
@@ -46,6 +36,7 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
                 <link rel="stylesheet" href="cover.css">
+		<script src="common.js"></script>
 		<style>
 			body {
 				overflow-y: scroll;
@@ -62,14 +53,14 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 				<div class="cover-container">
 
 					<div id="masthead" class="masthead clearfix">
-						<div id="mastheadBackground"></div>
+						<div id="mastheadBackground" style="display: none;" ></div>
 						<div class="inner">
 							<h3 class="masthead-brand"><a href="/"><img src="//ipfs.pics/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></a></h3>
 							<nav>
 								<ul class="nav masthead-nav">
 									<li><a href="/">Upload</a></li>
 									<li><a href="/random">Random</a></li>
-									<li class="active"><a href="browse.html">Browse</a></li>
+									<li class="active"><a href="browse.html">Trending</a></li>
 								</ul>
 								<ul class="">
 									<li></li>
@@ -95,7 +86,7 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 											<li role="presentation" class="voteScore" data-hash="<?php echo $hash; ?>"><span class="badge"><?php echo $score; ?></span></li>
 											<li role="presentation" class="underMenuButton "><a class="voteButton" data-hash="<?php echo $hash; ?>" data-vote="downvote" href="#" accesskey="D"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
 											<li role="presentation" class="underMenuButton "><a class="voteButton" data-hash="<?php echo $hash; ?>" data-vote="report" href="#">Report</a></li>
-											<li id="underMenuDownload"  role="presentation" class="underMenuButton "><a href="//ipfs.pics/ipfs/<?php echo $hash ?>?dl=1" target="_BLANK">Download</a></li>
+											<li id="underMenuPermalink"  role="presentation" class="underMenuButton "><a href="//ipfs.pics/<?php echo $hash ?>" target="_BLANK">Permalink</a></li>
 
 											<a class="btn btn-primary btn-sm btn-social" href="http://www.facebook.com/sharer.php?u=https://ipfs.pics/<?php echo $hash; ?>" target="_BLANK"><i class="fa fa-facebook fa-2x"></i></a>
 											<a class="btn btn-info btn-sm btn-social" href="https://twitter.com/intent/tweet?url=https://ipfs.pics/<?php echo $hash; ?>&via=IpfsPics" target="_BLANK"><i class="fa fa-twitter fa-2x"></i></a>
@@ -133,6 +124,7 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 
 					<div class="mastfoot">
 						<div id="footer" class="inner">
+							<h3>Come back tomorrow for more pictures!</h3><br>
 							This is free software, you can see the <a href="https://github.com/ipfspics/server">source code</a>
 						</div>	
 					</div>
@@ -150,21 +142,6 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 			   ga('send', 'pageview');
 
 
-				var isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
-				$("#mastheadBackground").hide();
-				if (!isMobile) {
-					$(document).scroll(function(){
-						if($(this).scrollTop() > 40) {   
-							$('#mastheadBackground').show("slide", {direction: "up"}, 300);
-						} else {
-							$('#mastheadBackground').hide("slide", {direction: "up"}, 200);
-						}
-					});
-				}
-
-				function vote (type, callback) {
-					$.ajax("/api/v1/"+type+"/"+hash).done(callback());
-				}
 			</script>
 
 			<!-- Bootstrap core JavaScript
