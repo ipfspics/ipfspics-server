@@ -62,6 +62,13 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 			body {
 				overflow-y: scroll;
 			}
+			@media (min-width: 700px) {
+				.adsbygoogle { 
+					width: 500px;
+					height: 100px;
+					margin: auto;
+				}
+			}
 		</style>
 	</head>
 
@@ -83,16 +90,13 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 									<li><a href="/random">Random</a></li>
 									<li class="active"><a href="browse.html">Trending</a></li>
 								</ul>
-								<ul class="">
-									<li></li>
-								</ul>
 							</nav>
 						</div>
 					</div>
 
 					<div class="inner cover">
 						<?php
-						$turnForAds = 5;
+						$turnForAds = 3;
 						while ($pic = $picsToDisplay->fetch()) {
 							$hash = $pic['p_hash'];
 							?>
