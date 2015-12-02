@@ -1,4 +1,23 @@
 <?php
+/*
+    View a picture or an album 
+    Copyright (C) 2015  IpfsPics Team
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+error_reporting(0);
+
 include "../pswd.php";
 include "class/ipfs.class.php";
 
@@ -151,7 +170,7 @@ $score = $score['score'];
 								<ul class="nav masthead-nav">
 									<li><a href="/">Upload</a></li>
 									<li><a href="/random">Random</a></li>
-									<li class="active"><a href="#">View</a></li>
+									<li><a href="/trending">Trending</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -288,13 +307,6 @@ $score = $score['score'];
 
 
 				if (!isMobile) {
-					$(document).scroll(function(){
-						if($(this).scrollTop() > 40) {   
-							$('#mastheadBackground').show("slide", {direction: "up"}, 300);
-						} else {
-							$('#mastheadBackground').hide("slide", {direction: "up"}, 200);
-						}
-					});
 					if (<?php echo var_export(!$isDir) ?>) {
 						$(".picture").click(function () {
 							$(this).toggleClass("fullscreenPicture");

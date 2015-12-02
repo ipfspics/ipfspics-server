@@ -73,7 +73,7 @@
 								<ul class="nav masthead-nav">
 									<li class="active"><a href="/">Upload</a></li>
 									<li><a href="/random">Random</a></li>
-									<li><a id="viewNav" href="/QmYqA8GiZ4MCeyJkERReLwGRnjSdQBx5SzjvMgiNwQZfx6#view">View</a></li>
+									<li><a href="/trending">Trending</a></li>
 								</ul>
 							</nav>
 						</div>
