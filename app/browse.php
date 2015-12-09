@@ -88,7 +88,7 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 								<ul class="nav masthead-nav">
 									<li><a href="/">Upload</a></li>
 									<li><a href="/random">Random</a></li>
-									<li class="active"><a href="browse.html">Trending</a></li>
+									<li class="active"><a href="/trending">Trending</a></li>
 								</ul>
 							</nav>
 						</div>
