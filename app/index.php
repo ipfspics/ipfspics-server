@@ -23,7 +23,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="p:domain_verify" content="e346f65dd772d167a00b2449567d8aa3"/>
-		<link rel="icon" href="//ipfs.pics/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="//ipfs.pics/static/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon-precomposed" href="https://ipfs.pics/ipfs/QmYMQUcyAA8PhLTX5WtyfRU1NZogJiAjkxc5MSDmh76K6A">
 
 		<!-- Custom styles for this template -->
@@ -41,7 +41,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-		<link rel="stylesheet" href="cover.css">
+		<link rel="stylesheet" href="static/cover.css">
 		<style>
 		#drop {
 		  min-height: 150px;
@@ -54,7 +54,7 @@
 		  z-index: 10 !important;
 		}
 		</style>
-		<script src="common.js"></script>
+		<script src="/static/common.js"></script>
 		<meta name="description" content="Decentralized image hosting website. Never lose your images by uploading them on ipfs.">
 	</head>
 

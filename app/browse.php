@@ -36,12 +36,12 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<link rel="icon" href="//ipfs.pics/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="//ipfs.pics/static/favicon.ico" type="image/x-icon">
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:site" content="@IpfsPics">
 
 		<!-- Custom styles for this template -->
-		<link href="cover.css" rel="stylesheet">
+		<link href="static/cover.css" rel="stylesheet">
 
 
 		<!--[if lt IE 9]>
@@ -56,8 +56,8 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-                <link rel="stylesheet" href="cover.css">
-		<script src="common.js"></script>
+                <link rel="stylesheet" href="/static/cover.css">
+		<script src="/static/common.js"></script>
 		<style>
 			body {
 				overflow-y: scroll;
