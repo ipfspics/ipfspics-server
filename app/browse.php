@@ -26,10 +26,21 @@ $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_p
 $ipfs = new IPFS("localhost", "8080", "5001"); 
 $hostname = $_SERVER['HTTP_HOST'];
 
-//Pictures are ordered by their lower bound of Wilson score confidence interval for a Bernoulli parameter
-//see http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
-$picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + 1.9208) / (   (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200))   - 1.96 * SQRT(   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) * (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200)) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200)) + 0.9604) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200))) /  (1+3.8416 / ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200))) AS lower_bound, (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash)-(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash) AS score FROM hash_info WHERE type != 'dir' AND sfw = 1 HAVING (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200)+(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) > 0 ORDER BY lower_bound DESC LIMIT 15;");
+if ($_GET['page'] == "trending") {
+	//Pictures are ordered by their lower bound of Wilson score confidence interval for a Bernoulli parameter
+	//Only the votes in the last four days count
+	//see http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
+	$picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + 1.9208) / (   (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200))   - 1.96 * SQRT(   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) * (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200)) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200)) + 0.9604) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200))) /  (1+3.8416 / ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200))) AS lower_bound, (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash)-(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash) AS score FROM hash_info WHERE type != 'dir' AND sfw = 1 HAVING (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200)+(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > UNIX_TIMESTAMP() - 259200) > 0 ORDER BY lower_bound DESC LIMIT 15;");
 
+	$pageTitle = "Trending crypto kittens";
+} elseif ($_GET['page'] == "best") {
+	//Pictures are ordered by their lower bound of Wilson score confidence interval for a Bernoulli parameter
+	//Here we take all the votes from all time.
+	//see http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
+	$picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + 1.9208) / (   (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ))   - 1.96 * SQRT(   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) * (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash )) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash )) + 0.9604) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ))) /  (1+3.8416 / ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ))) AS lower_bound, (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash)-(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash) AS score FROM hash_info WHERE type != 'dir' AND sfw = 1 HAVING (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash )+(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ) > 0 ORDER BY lower_bound DESC LIMIT 15;");
+
+	$pageTitle = "Best pictures of all time";
+} 
 ?>
 <html lang="en">
 	<head>
@@ -48,7 +59,7 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-                <title>Trending crypto kittens</title>
+                <title><?php echo $pageTitle; ?></title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
@@ -88,7 +99,8 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 								<ul class="nav masthead-nav">
 									<li><a href="/">Upload</a></li>
 									<li><a href="/random">Random</a></li>
-									<li class="active"><a href="/trending">Trending</a></li>
+									<li class="<?php if ($_GET['page'] == "trending") { echo "active"; } ?>"><a href="/trending">Trending</a></li>
+									<li class="<?php if ($_GET['page'] == "best") { echo "active"; } ?>"><a href="/best">Best</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -149,7 +161,11 @@ $picsToDisplay = $db->query("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM vote
 
 					<div class="mastfoot">
 						<div id="footer" class="inner">
-							<h3>Come back tomorrow for more pictures!</h3><br>
+							<?php 
+							if ($_GET['page'] == "trending") {
+								echo "<h3>Come back tomorrow for more pictures!</h3><br>";
+							}
+							?>
 							This is free software, you can see the <a href="https://github.com/ipfspics/server">source code</a>
 						</div>	
 					</div>

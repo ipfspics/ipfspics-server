@@ -171,6 +171,7 @@ $score = $score['score'];
 									<li><a href="/">Upload</a></li>
 									<li><a href="/random">Random</a></li>
 									<li><a href="/trending">Trending</a></li>
+									<li><a href="/best">Best</a></li>
 								</ul>
 							</nav>
 						</div>
