@@ -126,7 +126,7 @@ $score = $score['score'];
 		<link rel="canonical" href="https://ipfs.pics/<?php echo $hash ?>" />
 
 		<!-- Custom styles for this template -->
-		<link href="cover.css" rel="stylesheet">
+		<link href="/static/cover.css" rel="stylesheet">
 
 
 		<!--[if lt IE 9]>
@@ -256,10 +256,19 @@ $score = $score['score'];
 							<script>
 							if(window.matchMedia("only screen and (max-width: 760px)").matches) {
 								$("#googleAd").attr("data-ad-type", "text/image");
+							} else {
 							}
 							(adsbygoogle = window.adsbygoogle || []).push({});
 							</script>
 						<?php } else { ?>
+							<a target="_BLANK" href="https://m.do.co/c/f2c62d7220f1"><div id="DOad"></div></a>
+							<script>
+							if(window.matchMedia("only screen and (max-width: 760px)").matches) {
+								$("#DOad").prepend('<img src="https://ipfs.pics/ipfs/QmThGLcq9i39r3b1jP9Pi2YoKPpfy7ehu6etaVkindN9i6" />')
+							} else {
+								$("#DOad").prepend('<img src="https://ipfs.pics/ipfs/QmZ98g31Wm3ypmPu14rj52Zz3jF457neEwZPKWdrtUWbLA" />')
+							}
+							</script>
 						<?php } ?>
 					</div>
 					<div class="underMenu">
