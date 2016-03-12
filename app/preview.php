@@ -145,7 +145,6 @@ $score = $score['score'];
 		<script src="/static/common.js"></script>
 		<style>
 			body {
-				overflow-y: scroll;
 			}
 		</style>
 		<script>

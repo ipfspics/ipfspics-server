@@ -16,6 +16,10 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+include "class/ipfs.class.php";
+
+$ipfs = new IPFS("localhost");
+
 ?>
 <html lang="en">
 	<head>
@@ -41,6 +45,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="static/cover.css">
 		<style>
 		#drop {
@@ -68,6 +73,7 @@
 
 					<div class="masthead clearfix">
 						<div class="inner">
+							<div id="mastheadBackground" style="display: none;" ></div>
 							<h3 class="masthead-brand"><img src="//ipfs.pics/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></img></h3>
 							<nav>
 								<ul class="nav masthead-nav">
@@ -91,43 +97,36 @@
 						<a href="#" id="pasteURLbutton">or click here to paste an URL</a>
 					</div>
 
-					<div id="indexfoot">
-						<div id="footer" class="inner">
-							<h2 id="aboutLink">	Why ipfs.pics is awesome</h2>
+					<div id="index-characteristics" class="row">
+						<div class="col-md-4">
+							<i class="fa fa-cloud fa-5x"></i>
+							<br><br>
+							<h4>Replicated on the IPFS cloud</h4>
+							<a href="https://ipfs.io" target="_BLANK">Learn more about IPFS</a>
+						</div>
+						<div class="col-md-4">
+							<i class="fa fa-heart-o fa-5x"></i>
+							<br><br>
+							<h4>Free and open source</h4>
+							<a href="https://github.com/ipfspics/server" target="_BLANK">Check out the code</a>
+						</div>
+						<div class="col-md-4">
+							<i class="fa fa-cubes fa-5x"></i>
+							<br><br>
+							<h4>Decentralized</h4>
+							Use any server to access your content
 						</div>
 					</div>
 
-					<div id="about">
-						<div id="closeAbout"><a href='#'>Close</a></div>
-							<div id="textAbout">
-								<strong style="font-size: 20px">Why ipfs.pics Is Awesome</strong><br></br>
-
-								<p>Just by looking at our website, you don’t see much of a difference and that might be because the interesting part is how it works underneath. 
-								To fully understand this, you have to grasp the concept of an application we used for it that is called <i>IPFS</i> - the InterPlanetary File System. 
-								The whole application is based on the concept of peer to peer connections, 
-								which means that instead of hosting the information in a single location, our servers, the data is stored by everyone who wants to. 
-								When a picture is put on IPFS, it is given a 
-								<a target="_blank"; href="https://en.wikipedia.org/wiki/Hash_function">hash</a>, a 46 characters long digital fingerprint. 
-								No other file will have it and if the same file is added twice then their hashes will be exactly the same, which means the picture can still
-								be found on the network simply by knowing the hash, even if our website is down.
-								You can find the hash at the end of a picture URL, just like below. 
-								We saw potential in that application for an image hosting website, where you can know for sure your pictures will be available forever. </p> 
-								<a target="_blank"; href="http://ipfs.pics/QmbuuLzxztp35bEcMp6VXx2y7NSm1aQTPhxRyKr3zZTgCN">
-									<img src="https://ipfs.pics/ipfs/QmcT99xWRNDAYunp7Zr8wGiwMKSgVfDpfbXw9hBtLCM4Mm" style="width:100%" />
-								</a> 
-								<p>
-								We also run on an <a href="https://github.com/ipfspics/server">open-source stack</a> and we donate our unused processing power to 
-								<a target="_blank"; href="http://folding.stanford.edu/">Folding at Home</a>.</p> 
-
-								<a href="https://twitter.com/IpfsPics" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @IpfsPics</a><br>
-								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-
-								<center>We are not related to the IPFS project, for more information on them, visit their website: 
-								<a target="_blank"; href="http://ipfs.io/">ipfs.io</a>.</center>
-							</div>
-						</div>
+					<div id="index-characteristics" class="row">
 					</div>
 
+					<br><br>
+					<?php 
+						echo "Running ipfs version ";
+						echo  $ipfs->version();
+					?>
+					<br><br>
 				</div>
 			</div>
 		</div>

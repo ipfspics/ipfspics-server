@@ -50,7 +50,6 @@ body {
   color: #fff;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
-  overflow: hidden;
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -180,11 +179,17 @@ box-shadow:
 #pasteURLbutton {
   visibility: hidden;
 }
+#index-characteristics {
+  margin-top: 70px;
+}
 #dropoff {
   height: 200px;
   width: 500px;
   max-width: 100% !important;
-  margin: auto;
+  margin-top: 25%;
+  margin-bottom: 20%;
+  margin-right: auto;
+  margin-left: auto;
   overflow: hidden;
   position: relative;
   border-radius: 6px;
