@@ -86,6 +86,17 @@ class IPFS {
 		return $data;
 	}
 
+	public function version () {
+		
+		$ip = $this->gatewayIP;
+		$port = $this->gatewayApiPort;
+
+		$response = $this->curl("http://$ip:$port/api/v0/version");
+		$data = json_decode($response, TRUE);
+
+		return $data["Version"];
+	}
+
 	private function curl ($url, $data = "") {
 		$ch = curl_init();
 
