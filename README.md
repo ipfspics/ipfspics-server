@@ -48,3 +48,13 @@ This program is free software: you can redistribute it and/or modify
     it under the terms of the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.html) as
     published by the Free Software Foundation, either version 3 of the
     License, or (at your option) any later version.
+
+The program also contains the following librairies:
+
+* jQuery under the [MIT licence](https://github.com/jquery/jquery/blob/master/LICENSE.txt).
+
+* jQuery UI under the [MIT licence](https://github.com/jquery/jquery-ui/blob/master/LICENSE.txt).
+
+* Bootstrap under the [MIT licence](https://github.com/twbs/bootstrap/blob/master/LICENSE).
+
+* FontAwesome under the [MIT licence + SIL](https://fortawesome.github.io/Font-Awesome/license/).
