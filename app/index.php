@@ -123,8 +123,14 @@ $ipfs = new IPFS("localhost");
 
 					<br><br>
 					<?php 
-						echo "Running ipfs version ";
-						echo  $ipfs->version();
+						$ipfsVersion = $ipfs->version();
+
+						if ($ipfsVersion == "") {
+							echo "It seems no ipfs daemon is running on this server";
+						} else {
+							echo "Running ipfs version ";
+							echo  $ipfsVersion;
+						}
 					?>
 					<br><br>
 				</div>
