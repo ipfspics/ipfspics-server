@@ -44,4 +44,21 @@ foreach($notBannedHashes as $i) {
 	print("Pinned hash: $hash \n");
 }
 
+// This section if to optionnaly unpin porn on your instance. 
+// You have to add "removeSomeNSFW" as an argument when running gc.php.
+// For now, it removes NSFW pictures which did not get votes and are more than two weeks old. 
+// If you want to keep them, make sure they are replicated on another computer before running this.
+
+if (in_array("removeSomeNSFW", $argv) ) {
+
+	$NSFWtoRemove = $db->query("SELECT hash as p_hash FROM hash_info WHERE nsfw = 1 AND first_seen < UNIX_TIMESTAMP() - 1209600 HAVING (SELECT COUNT(*) FROM votes WHERE hash = p_hash) < 2;")->fetchAll();
+
+	foreach($NSFWtoRemove as $i) {
+		$hash = $i['hash'];
+		$ipfs->pinRm($hash);
+		print "Removed randomly: $hash \n";
+
+	}
+} 
+
 print "You can now run ipfs built-in garbage collector \n";
