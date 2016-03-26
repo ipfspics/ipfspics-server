@@ -58,7 +58,7 @@ if (in_array("removeSomeNSFW", $argv) ) {
 	$NSFWtoRemove = $db->query("SELECT hash as p_hash FROM hash_info WHERE nsfw = 1 AND first_seen < UNIX_TIMESTAMP() - 1209600 HAVING (SELECT COUNT(*) FROM votes WHERE hash = p_hash) < 2;")->fetchAll();
 
 	foreach($NSFWtoRemove as $i) {
-		$hash = $i['hash'];
+		$hash = $i['p_hash'];
 		$ipfs->pinRm($hash);
 		print "Removed randomly: $hash \n";
 
