@@ -27,22 +27,26 @@ $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_p
 $ipfs = new IPFS("localhost", "8080", "5001");
 
 // Makes sure all the banned hashes are removed
-$bannedHashes = $db->query("SElECT * FROM hash_info WHERE banned = 1;")->fetchAll();
 
-foreach($bannedHashes as $i) {
-	$hash = $i['hash'];
-	$ipfs->pinRm($hash);
-	print "Removed banned hash: $hash \n";
+if (!in_array("skipUnpin", $argv) ) {
+	$bannedHashes = $db->query("SElECT * FROM hash_info WHERE banned = 1;")->fetchAll();
+
+	foreach($bannedHashes as $i) {
+		$hash = $i['hash'];
+		$ipfs->pinRm($hash);
+		print "Removed banned hash: $hash \n";
+	}
 }
 
+if (!in_array("skipPin", $argv) ) {
+	$notBannedHashes = $db->query("SElECT * FROM hash_info WHERE banned != 1;")->fetchAll();
 
-$notBannedHashes = $db->query("SElECT * FROM hash_info WHERE banned != 1;")->fetchAll();
-
-foreach($notBannedHashes as $i) {
-	$hash = $i['hash'];
-	$ipfs->pinAdd($hash);
-	print("Pinned hash: $hash \n");
-}
+	foreach($notBannedHashes as $i) {
+		$hash = $i['hash'];
+		$ipfs->pinAdd($hash);
+		print("Pinned hash: $hash \n");
+	}
+} 
 
 // This section if to optionnaly unpin porn on your instance. 
 // You have to add "removeSomeNSFW" as an argument when running gc.php.
