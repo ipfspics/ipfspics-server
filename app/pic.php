@@ -34,7 +34,7 @@ $ipfs = new IPFS("localhost", "8080", "5001");
 $imageContent = $ipfs->cat($hash);
 
 if ($imageContent == "") {
-	header("Location: https://ipfs.io/ipfs/$hash");
+	header("Location: http://104.154.250.16/ipfs/$hash");
 } else {
 	$imageSize = $ipfs->size($hash);  
 
