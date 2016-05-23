@@ -18,6 +18,8 @@
 */
 include "class/ipfs.class.php";
 
+$fallbacks = array("http://104.154.250.16", "https://ipfs.io");
+
 if ( !isset($_GET['hash']) ) {
 	$hash = "QmX6kHmFXsadTqLDMMnuV5dFqcGQAfNeKAArStw1BKqFW7";
 } else {
@@ -34,7 +36,7 @@ $ipfs = new IPFS("localhost", "8080", "5001");
 $imageContent = $ipfs->cat($hash);
 
 if ($imageContent == "") {
-	header("Location: http://104.154.250.16/ipfs/$hash");
+	header("Location: ". $fallbacks[array_rand($fallbacks)] ."/ipfs/$hash");
 } else {
 	$imageSize = $ipfs->size($hash);  
 
