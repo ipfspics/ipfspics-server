@@ -18,7 +18,7 @@
 */
 include "class/ipfs.class.php";
 
-$fallbacks = array("http://104.154.250.16", "https://ipfs.io");
+$fallbacks = array("https://ipfs.io");
 
 if ( !isset($_GET['hash']) ) {
 	$hash = "QmX6kHmFXsadTqLDMMnuV5dFqcGQAfNeKAArStw1BKqFW7";
