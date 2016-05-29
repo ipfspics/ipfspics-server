@@ -1,7 +1,8 @@
 <?php
 /*
     Returns a hash to backup
-    Copyright (C) 2015 IpfsPics Team
+    Copyright (C) 2015-2016 Vincent Cloutier
+    Copyright (C) 2015-2016 Didier Camus-Ferland
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -16,7 +17,7 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-include "../pswd.php";
+include "../../pswd.php";
 $host = $_SERVER['HTTP_HOST'];
 $failoverHash = "Qma25ZSNbp9AdjrPczjzKYm7zUAdcu9jQZJXbsPiifW79M";
 
