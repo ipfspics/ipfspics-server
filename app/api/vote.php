@@ -30,7 +30,9 @@ if ( !isset($_GET['id']) or !isset($_GET['type']) ) {
 	}
 }
 
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
+$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
+    PDO::ATTR_PERSISTENT => true
+));
 $ip=$_SERVER['REMOTE_ADDR'];
 $info = $db->query("SElECT hash FROM hash_info WHERE hash='$hash'")->fetch();
 

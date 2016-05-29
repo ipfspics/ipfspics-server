@@ -31,7 +31,9 @@ if( !isset($_GET['hash']) ) {
 	}
 }
 
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
+$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
+    PDO::ATTR_PERSISTENT => true
+));
 $ipfs = new IPFS("localhost", "8080", "5001"); 
 $hostname = $_SERVER['HTTP_HOST'];
 

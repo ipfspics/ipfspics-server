@@ -27,7 +27,9 @@ if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
 	$protocol = "http";
 }
 
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
+$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
+    PDO::ATTR_PERSISTENT => true
+));
 
 $hashesByScore = $db->query("SELECT hash p_hash, ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash) - (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash)) score FROM hash_info WHERE sfw = 1 GROUP BY hash ORDER BY score DESC;")->fetchAll();
 $worstScore = (int) $hashesByScore[sizeof($hashesByScore) - 1]['score'];

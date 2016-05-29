@@ -23,7 +23,9 @@ $failoverHash = "Qma25ZSNbp9AdjrPczjzKYm7zUAdcu9jQZJXbsPiifW79M";
 
 
 
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
+$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
+    PDO::ATTR_PERSISTENT => true
+));
 
 if ($_GET['type'] == 'sfw') {
 	$randomHashes = $db->query("SELECT hash FROM hash_info WHERE sfw = 1 ORDER BY RAND() LIMIT 1;")->fetch();
