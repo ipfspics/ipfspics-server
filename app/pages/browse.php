@@ -18,8 +18,8 @@
 */
 error_reporting(0);
 
-include "../pswd.php";
-include "class/ipfs.class.php";
+include "../../pswd.php";
+include "../class/ipfs.class.php";
 
 
 $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);

@@ -1,8 +1,8 @@
 RewriteEngine on
-RewriteRule ^Q([A-Za-z0-9-]+)$ preview.php?hash=Q$1
+RewriteRule ^Q([A-Za-z0-9-]+)$ pages/preview.php?hash=Q$1
 RewriteRule ^ipfs/Q([A-Za-z0-9-]+)$ picture.php?hash=Q$1
-RewriteRule ^trending browse.php?page=trending
-RewriteRule ^best browse.php?page=best
+RewriteRule ^trending pages/browse.php?page=trending
+RewriteRule ^best pages/browse.php?page=best
 RewriteRule ^api/v1/upvote/Q([A-Za-z0-9-]+)$ vote.php?type=upvote&id=Q$1
 RewriteRule ^api/v1/downvote/Q([A-Za-z0-9-]+)$ vote.php?type=downvote&id=Q$1
 RewriteRule ^api/v1/report/Q([A-Za-z0-9-]+)$ vote.php?type=report&id=Q$1
