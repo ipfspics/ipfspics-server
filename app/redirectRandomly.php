@@ -1,7 +1,8 @@
 <?php
 /*
-    Choses a random picture to display
-    Copyright (C) 2015 IpfsPics Team
+    Redirect to a random picture
+    Copyright (C) 2015-2016 Vincent Cloutier 
+    Copyright (C) 2015-2016 Didier Camus-Ferland 
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
