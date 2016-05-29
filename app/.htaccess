@@ -1,6 +1,6 @@
 RewriteEngine on
 RewriteRule ^Q([A-Za-z0-9-]+)$ preview.php?hash=Q$1
-RewriteRule ^ipfs/Q([A-Za-z0-9-]+)$ pic.php?hash=Q$1
+RewriteRule ^ipfs/Q([A-Za-z0-9-]+)$ picture.php?hash=Q$1
 RewriteRule ^trending browse.php?page=trending
 RewriteRule ^best browse.php?page=best
 RewriteRule ^api/v1/upvote/Q([A-Za-z0-9-]+)$ vote.php?type=upvote&id=Q$1
