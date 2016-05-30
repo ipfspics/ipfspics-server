@@ -28,6 +28,7 @@ $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_p
 ));
 $ipfs = new IPFS("localhost", "8080", "5001"); 
 $hostname = $_SERVER['HTTP_HOST'];
+$postPerPage = 9;
 
 if ($_GET['timestamp'] == "") {
 	//Rounding here allows for better caching. -5 is completely arbitrairy. 
@@ -39,7 +40,7 @@ if ($_GET['timestamp'] == "") {
 if ($_GET['offset'] == "") {
 	$offset = 0;
 } else {
-	$offset = $_GET['offset'];
+	$offset = (int) $_GET['offset'];
 }
 
 if ($_GET['page'] == "trending") {
@@ -48,9 +49,9 @@ if ($_GET['page'] == "trending") {
 	//see http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
 	$request = $db->prepare("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) + 1.9208) / (   (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200))   - 1.96 * SQRT(   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) * (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200)) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200)) + 0.9604) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200))) /  (1+3.8416 / ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200))) AS lower_bound, (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash)-(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash) AS score FROM hash_info WHERE type != 'dir' AND sfw = 1 HAVING (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200)+(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200) > 0 ORDER BY lower_bound DESC LIMIT :lowerBound,:higherBound;");
 	$request->bindParam(":timestamp", $timestamp, PDO::PARAM_INT);
-	$lowerBound = $offset * 15;
+	$lowerBound = $offset;
 	$request->bindParam(":lowerBound", $lowerBound, PDO::PARAM_INT);
-	$higherBound = $offet * 15 + 15;
+	$higherBound = $offset + $postPerPage;
 	$request->bindParam(":higherBound", $higherBound, PDO::PARAM_INT);
 	$request->execute();
 	$picsToDisplay = $request->fetchAll(); 
@@ -61,9 +62,9 @@ if ($_GET['page'] == "trending") {
 	//see http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
 	$request = $db->prepare("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + 1.9208) / (   (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ))   - 1.96 * SQRT(   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) * (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash )) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash )) + 0.9604) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ))) /  (1+3.8416 / ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ))) AS lower_bound, (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash)-(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash) AS score FROM hash_info WHERE type != 'dir' AND sfw = 1 HAVING (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash )+(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ) > 0 ORDER BY lower_bound DESC LIMIT :lowerBound,:higherBound;");
 
-	$lowerBound = $offset * 15;
+	$lowerBound = $offset;
 	$request->bindParam(":lowerBound", $lowerBound, PDO::PARAM_INT);
-	$higherBound = $offet * 15 + 15;
+	$higherBound = $offset + $postPerPage;
 	$request->bindParam(":higherBound", $higherBound, PDO::PARAM_INT);
 	$request->execute();
 	$picsToDisplay = $request->fetchAll();
@@ -136,7 +137,7 @@ if ($_GET['page'] == "trending") {
 
 					<div class="inner cover">
 						<?php
-						$turnForAds = 3;
+						$turnForAds = 2;
 						foreach ($picsToDisplay as $pic) {
 							$hash = $pic['p_hash'];
 							?>
@@ -165,7 +166,7 @@ if ($_GET['page'] == "trending") {
 							</div>
 							<?php
 							$turnForAds++;
-							$turnForAds = $turnForAds % 5;
+							$turnForAds = $turnForAds % 3;
 							if ($turnForAds == 0) {
 								?>
 								<br>
@@ -186,8 +187,8 @@ if ($_GET['page'] == "trending") {
 						}
 						?>
 
-
-<a class="btn btn-success btn-lg" href="/<?php echo $_GET['page'] ?>/<?php echo $timestamp ?>/<?php echo $offset + 1 ?>/" style="min-width:250px; width:45%;" >MORE PRETTY PICTURES</a>
+<br>
+<a class="btn btn-success btn-lg" href="/<?php echo $_GET['page'] ?>/<?php echo $timestamp ?>/<?php echo $offset + $postPerPage ?>/" style="min-width:250px; width:45%;" >MORE PRETTY PICTURES</a>
 <br><br>
 					<div class="mastfoot">
 						<div id="footer" class="inner">
