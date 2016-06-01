@@ -1,7 +1,8 @@
 <?php
 /*
     Displays pictures with the hash and manages the cache
-    Copyright (C) 2015 IpfsPics Team
+    Copyright (C) 2015-2016 Vincent Cloutier
+    Copyright (C) 2016 Didier Camus-Ferland 
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -17,7 +18,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 include "class/ipfs.class.php";
+include "../pswd.php";
 
+$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
+    PDO::ATTR_PERSISTENT => true
+));
 $fallbacks = array("https://ipfs.io");
 
 if ( !isset($_GET['hash']) ) {
@@ -32,6 +37,8 @@ if ( !isset($_GET['hash']) ) {
 }
 
 $ipfs = new IPFS("localhost", "8080", "5001");
+
+$db->prepare("UPDATE hash_info SET nb_views = nb_views + 1 WHERE hash = '". $hash ."';")->execute();
 
 $imageContent = $ipfs->cat($hash);
 
@@ -55,3 +62,4 @@ if ($imageContent == "") {
 	
 	echo $imageContent;
 }
+
