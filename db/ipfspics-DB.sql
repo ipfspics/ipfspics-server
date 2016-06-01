@@ -7,6 +7,7 @@ CREATE TABLE hash_info (hash VARCHAR(46) UNIQUE,
                         sfw TINYINT(1) NOT NULL,
                         backed_up SMALLINT(6) NOT NULL,
                         banned TINYINT(1) NOT NULL,
+			nb_views BIGINT UNSIGNED NOT NULL,
                         first_seen INT(11),
 
                         PRIMARY KEY (hash)
