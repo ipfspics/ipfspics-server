@@ -27,6 +27,8 @@ You can open an issue if you have a question not listed here.
 
 Yes you can! [Installation instructions](https://github.com/ipfspics/server/wiki/How-to-install-ipfs.pics-on-your-own-machine) are available in the project wiki. You can do whatever you want with the code, as long as you give a link to your code to your users. See the licence for more details. 
 
+Docker support for simpler installs is being worked on. 
+
 ## What stops people from adding a bunch of junk on ipfs until the network is full?
 
 IPFS does not work like that. Each computer is responsible for what it chooses to make available to the rest of the network, and you can't force a computer to store something it doesn't want to store. We make sure that everything you upload to the official ipfs.pics instance is distributed on multiple computers. We have also heard of a few people who redirect to their own instance to make sure the content they care about stays alive. 
