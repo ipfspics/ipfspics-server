@@ -1,6 +1,7 @@
 /*
-    CSS stylesheet for the front pafe (see "index.php")
-    Copyright (C) 2015 IpfsPics Team
+    Default CSS stylesheet for the site
+    Copyright (C) 2015-2016 Vincent Cloutier 
+    Copyright (C) 2015 Didier Camus-Ferland
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -179,7 +180,7 @@ box-shadow:
 #pasteURLbutton {
   visibility: hidden;
 }
-#index-characteristics {
+#index-characteristics div {
   margin-top: 70px;
 }
 #dropoff {
