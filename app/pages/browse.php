@@ -110,6 +110,13 @@ if ($_GET['page'] == "trending") {
 				}
 			}
 		</style>
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<script>
+		  (adsbygoogle = window.adsbygoogle || []).push({
+		    google_ad_client: "ca-pub-7083426718110488",
+		    enable_page_level_ads: true
+		  });
+		</script>
 	</head>
 
 	<body>
