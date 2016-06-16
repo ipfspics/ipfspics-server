@@ -187,8 +187,8 @@ box-shadow:
   height: 200px;
   width: 500px;
   max-width: 100% !important;
-  margin-top: 25%;
-  margin-bottom: 20%;
+  margin-top: 235px;
+  margin-bottom: 150px;
   margin-right: auto;
   margin-left: auto;
   overflow: hidden;
@@ -399,7 +399,8 @@ box-shadow:
   }
   #dropoff {
     width: 230px; !important;
-    margin-top: 40px;
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
     overflow: visible !important;
     z-index: 2;
   }

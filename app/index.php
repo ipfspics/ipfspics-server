@@ -48,12 +48,8 @@ $ipfs = new IPFS("localhost");
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="static/cover.css">
 		<style>
-		#drop {
-		  min-height: 150px;
-		  width: 250px;
-		  border: 1px solid blue;
-		  margin: 10px;
-		  padding: 10px;
+		.row {
+		  margin-bottom: 100px;
 		}
 		.mastfoot {
 		  z-index: 10 !important;
@@ -115,6 +111,18 @@ $ipfs = new IPFS("localhost");
 							<br><br>
 							<h4>Decentralized</h4>
 							Use any server to access your content
+						</div>
+					</div>
+					<br>
+					<h1> ipfs.pics in social media </h1>
+					<br>
+					<div class="row">
+						<div class="col-md-6">
+							<a href="https://www.reddit.com/domain/ipfs.pics" target="_BLANK"><img src="https://ipfs.pics/ipfs/QmdixSJTJWUFuxctcRtHfrxqUqVKcrpyrWjFoojFSZkTZL" width=300/></a>
+							<br>
+						</div>
+						<div class="col-md-6">
+							<a href="https://www.voat.co/domains/ipfs.pics" target="_BLANK"><img src="https://ipfs.pics/ipfs/Qmduj4VjKMMWRLwxcrHugxCTWD1cZ66iiKTeW2JGRZtY9u" height=125 /></a>
 						</div>
 					</div>
 
