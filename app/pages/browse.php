@@ -102,11 +102,11 @@ if ($_GET['page'] == "trending") {
 			body {
 				overflow-y: scroll;
 			}
-			@media (min-width: 700px) {
+			@media (min-width: 970px) {
 				.adsbygoogle { 
-					width: 500px;
-					height: 100px;
-					margin: auto;
+					width: 970px;
+					margin-left: -50px;
+					height: 255px;
 				}
 			}
 		</style>
@@ -173,7 +173,7 @@ if ($_GET['page'] == "trending") {
 							</div>
 							<?php
 							$turnForAds++;
-							$turnForAds = $turnForAds % 3;
+							$turnForAds = $turnForAds % 7;
 							if ($turnForAds == 0) {
 								?>
 								<br>
