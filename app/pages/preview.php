@@ -127,6 +127,11 @@ $score = $score['score'];
 		<meta name="description" content="<?php echo $description ?>">
 		<link rel="canonical" href="https://ipfs.pics/<?php echo $hash ?>" />
 
+		<html itemscope itemtype="http://schema.org/Thing">
+		<meta itemprop="image" content="<?php echo $thumbnail ?>">
+		<meta itemprop="description" content="<?php echo $description ?>">
+		<meta itemprop="name" content="<?php echo $title ?>">
+
 		<!-- Custom styles for this template -->
 		<link href="/static/cover.css" rel="stylesheet">
 
