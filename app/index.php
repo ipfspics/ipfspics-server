@@ -114,7 +114,7 @@ $ipfs = new IPFS("localhost");
 						</div>
 					</div>
 					<br>
-					<h1> ipfs.pics in social media </h1>
+					<h1> ipfs.pics around the web </h1>
 					<br>
 					<div class="row">
 						<div class="col-md-6">
