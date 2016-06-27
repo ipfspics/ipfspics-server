@@ -18,8 +18,8 @@
 */
 error_reporting(0);
 
-include "../../pswd.php";
-include "../class/ipfs.class.php";
+include __DIR__ ."/../../pswd.php";
+include __DIR__ ."/../class/ipfs.class.php";
 
 if( !isset($_GET['hash']) ) {
 	$hash = "QmYqA8GiZ4MCeyJkERReLwGRnjSdQBx5SzjvMgiNwQZfx6";

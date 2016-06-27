@@ -17,8 +17,8 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-include "class/ipfs.class.php";
-include "../pswd.php";
+include __DIR__ ."/class/ipfs.class.php";
+include __DIR__ ."/../pswd.php";
 
 $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
     PDO::ATTR_PERSISTENT => true

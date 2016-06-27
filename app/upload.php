@@ -18,8 +18,8 @@
 */
 error_reporting(0);
 
-include "../pswd.php";
-include "class/ipfs.class.php";
+include __DIR__ ."/../pswd.php";
+include __DIR__ ."/class/ipfs.class.php";
 
 $ipfs = new IPFS("localhost", "8080", "5001"); 
 
