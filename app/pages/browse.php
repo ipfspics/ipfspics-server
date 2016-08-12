@@ -70,6 +70,10 @@ if ($_GET['page'] == "trending") {
 	$picsToDisplay = $request->fetchAll();
 	$pageTitle = "Best pictures of all time";
 } 
+if ($_GET['format'] == 'json') {
+	echo json_encode($picsToDisplay);
+	die();
+}
 ?>
 <html lang="en">
 	<head>

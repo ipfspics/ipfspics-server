@@ -9,4 +9,6 @@ RewriteRule ^api/v1/upvote/Q([A-Za-z0-9-]+)$ api/vote.php?type=upvote&id=Q$1
 RewriteRule ^api/v1/downvote/Q([A-Za-z0-9-]+)$ api/vote.php?type=downvote&id=Q$1
 RewriteRule ^api/v1/report/Q([A-Za-z0-9-]+)$ api/vote.php?type=report&id=Q$1
 RewriteRule ^api/v1/select/([A-Za-z0-9]+)/random$ api/backup.php?type=$1&selector=random
+RewriteRule ^api/v1/trending/([0-9]+)/([0-9]+) pages/browse.php?format=json&page=trending&timestamp=$1&offset=$2
+RewriteRule ^api/v1/best/([0-9]+)/([0-9]+) pages/browse.php?format=json&page=best&timestamp=$1&offset=$2
 RewriteRule ^random api/redirectRandomly.php
