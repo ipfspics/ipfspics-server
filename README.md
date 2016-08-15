@@ -25,7 +25,7 @@ You can open an issue if you have a question not listed here.
 
 ## Can I install ipfs.pics on my own server?
 
-Yes you can! [Installation instructions](https://github.com/ipfspics/server/wiki/How-to-install-ipfs.pics-on-your-own-machine) are available in the project wiki. You can do whatever you want with the code, as long as you give a link to your code to your users. See the licence for more details. 
+Yes you can! [Installation instructions](https://github.com/ipfspics/ipfspics-server/wiki/How-to-install-ipfs.pics-on-LAMP-(recommended)) are available in the project wiki. You can do whatever you want with the code, as long as you give a link to your code to your users. See the licence for more details. 
 
 Docker support for simpler installs is being worked on. 
 
