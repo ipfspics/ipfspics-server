@@ -1,0 +1,6 @@
+{
+    "license": "AGPLv3+",
+    "require": {
+	"cloutier/php-ipfs-api": "dev-master"
+    }
+}
