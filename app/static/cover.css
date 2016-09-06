@@ -209,7 +209,6 @@ box-shadow:
   color: grey;
   text-shadow: none;
   vertical-align: middle;
-  padding-top: 150px;
   line-height: 10;
   width: 90%;
 }
@@ -413,7 +412,7 @@ box-shadow:
   #dropoff span {
     display: block !important;
     position: relative;
-    top: -120px;
+    top: 35px;
     width: 200px;
     word-wrap: break-word;
     line-height: 2 !important;
