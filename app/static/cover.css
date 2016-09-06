@@ -188,7 +188,6 @@ box-shadow:
   width: 500px;
   max-width: 100% !important;
   margin-top: 235px;
-  margin-bottom: 150px;
   margin-right: auto;
   margin-left: auto;
   overflow: hidden;
@@ -270,6 +269,10 @@ box-shadow:
   position: relative;
   top: 5px;
 }
+.max-filesize {
+  color: grey;
+}
+
 /*
  * About
  */
@@ -370,6 +373,9 @@ box-shadow:
   .mastfoot,
   .cover-container {
     width: 100%; /* Must be percentage or pixels for horizontal alignment */
+  }
+  .cover {
+    margin-bottom: 100px;
   }
   .picture {
     max-width: 100%;

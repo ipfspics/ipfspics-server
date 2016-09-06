@@ -91,7 +91,11 @@ $ipfs = new IPFS("localhost");
 							</input>
 						</form>
 						<a href="#" id="pasteURLbutton">or click here to paste an URL</a>
+                                                <div class="max-filesize">
+                                                    <center>Maximum size: <?php echo ini_get("upload_max_filesize"); ?></center>
+                                                </div>
 					</div>
+
 
 					<div id="index-characteristics" class="row">
 						<div class="col-md-4">
