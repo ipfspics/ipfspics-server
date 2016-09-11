@@ -31,16 +31,16 @@ $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_p
     PDO::ATTR_PERSISTENT => true
 ));
 
-$hashesByScore = $db->query("SELECT hash p_hash, ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash) - (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash)) score FROM hash_info WHERE sfw = 1 GROUP BY hash ORDER BY score DESC;")->fetchAll();
-$worstScore = (int) $hashesByScore[sizeof($hashesByScore) - 1]['score'];
+$hashesByScore = $db->query("SELECT hash, nb_views FROM hash_info WHERE sfw = 1 ORDER BY nb_views DESC;")->fetchAll();
+$worstScore = (int) $hashesByScore[sizeof($hashesByScore) - 1]['nb_views'];
 
 // Takes a random number between 1 and the equivalent of the sum of all scores when the values are shifted up so the lowest one is equal to zero.
-$randomTrigger = mt_rand(1, ((int) array_sum(array_column($hashesByScore, 'score')) + abs($worstScore) * sizeof($hashesByScore)) );
+$randomTrigger = mt_rand(1, ((int) array_sum(array_column($hashesByScore, 'nb_views')) + abs($worstScore) * sizeof($hashesByScore)) );
 
 foreach ($hashesByScore as $e) {
-	$randomTrigger -= $e['score'] + abs($worstScore);
+	$randomTrigger -= $e['nb_views'] + abs($worstScore);
 	if ($randomTrigger <= 0) {
-        	$hash = $e['p_hash'];
+        	$hash = $e['hash'];
 		break;
 	}
 }
