@@ -10,6 +10,8 @@ services:
       - ipfs
   ipfs:
     image: ipfs/go-ipfs
+    volumes:
+      - ~/.ipfs/:/data/ipfs/
 volumes:
   logvolume01: {}
 
