@@ -19,7 +19,11 @@
 error_reporting(0);
 
 include __DIR__ ."/../../pswd.php";
-include __DIR__ ."/../class/ipfs.class.php";
+require __DIR__ . '/../../vendor/autoload.php';
+
+use Cloutier\PhpIpfsApi\IPFS;
+
+$ipfs = new IPFS("localhost");
 
 if( !isset($_GET['hash']) ) {
 	$hash = "QmYqA8GiZ4MCeyJkERReLwGRnjSdQBx5SzjvMgiNwQZfx6";
@@ -34,7 +38,6 @@ if( !isset($_GET['hash']) ) {
 $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
     PDO::ATTR_PERSISTENT => true
 ));
-$ipfs = new IPFS("localhost", "8080", "5001"); 
 $hostname = $_SERVER['HTTP_HOST'];
 
 define("defaultTitle", "A picture hosted on the permanent web");

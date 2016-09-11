@@ -19,9 +19,11 @@
 error_reporting(0);
 
 include __DIR__ ."/../pswd.php";
-include __DIR__ ."/class/ipfs.class.php";
+require __DIR__ . '/../vendor/autoload.php';
 
-$ipfs = new IPFS("localhost", "8080", "5001"); 
+use Cloutier\PhpIpfsApi\IPFS;
+
+$ipfs = new IPFS("localhost");
 
 $errorHash = "QmW3FgNGeD46kHEryFUw1ftEUqRw254WkKxYeKaouz7DJA";
 $host = $_SERVER['HTTP_HOST'];
