@@ -85,7 +85,7 @@ if ($_GET['format'] == 'json') {
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<link rel="icon" href="//ipfs.pics/static/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:site" content="@IpfsPics">
 
@@ -139,7 +139,7 @@ if ($_GET['format'] == 'json') {
 					<div id="masthead" class="masthead clearfix">
 						<div id="mastheadBackground" style="display: none;" ></div>
 						<div class="inner">
-							<h3 class="masthead-brand"><a href="/"><img src="//ipfs.pics/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></a></h3>
+							<h3 class="masthead-brand"><a href="/"><img src="/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></a></h3>
 							<nav>
 								<ul class="nav masthead-nav">
 									<li><a href="/">Upload</a></li>
@@ -158,7 +158,7 @@ if ($_GET['format'] == 'json') {
 							$hash = $pic['p_hash'];
 							?>
 							<div class="picture-wrapper">
-								<img src="//ipfs.pics/ipfs/<?php echo $hash; ?>" class="picture" />
+								<img src="/ipfs/<?php echo $hash; ?>" class="picture" />
 							</div>
 							<div class="underMenu">
 								<div class="panel panel-default">
@@ -168,7 +168,7 @@ if ($_GET['format'] == 'json') {
 											<li role="presentation" class="voteScore" data-hash="<?php echo $hash; ?>"><span class="badge"><?php echo $pic['score']; ?></span></li>
 											<li role="presentation" class="underMenuButton "><a class="voteButton" data-hash="<?php echo $hash; ?>" data-vote="downvote" href="#" accesskey="D"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
 											<li role="presentation" class="underMenuButton "><a class="voteButton" data-hash="<?php echo $hash; ?>" data-vote="report" href="#">Report</a></li>
-											<li id="underMenuPermalink"  role="presentation" class="underMenuButton "><a href="//ipfs.pics/<?php echo $hash ?>" target="_BLANK">Permalink</a></li>
+											<li id="underMenuPermalink"  role="presentation" class="underMenuButton "><a href="/<?php echo $hash ?>" target="_BLANK">Permalink</a></li>
 
 											<a class="btn btn-primary btn-sm btn-social" href="http://www.facebook.com/sharer.php?u=https://ipfs.pics/<?php echo $hash; ?>" target="_BLANK"><i class="fa fa-facebook fa-2x"></i></a>
 											<a class="btn btn-info btn-sm btn-social" href="https://twitter.com/intent/tweet?url=https://ipfs.pics/<?php echo $hash; ?>&via=IpfsPics" target="_BLANK"><i class="fa fa-twitter fa-2x"></i></a>

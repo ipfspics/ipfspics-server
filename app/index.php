@@ -29,8 +29,8 @@ $ipfs = new IPFS("localhost");
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="p:domain_verify" content="e346f65dd772d167a00b2449567d8aa3"/>
-		<link rel="icon" href="//ipfs.pics/static/favicon.ico" type="image/x-icon">
-		<link rel="apple-touch-icon-precomposed" href="https://ipfs.pics/ipfs/QmYMQUcyAA8PhLTX5WtyfRU1NZogJiAjkxc5MSDmh76K6A">
+		<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+		<link rel="apple-touch-icon-precomposed" href="/ipfs/QmYMQUcyAA8PhLTX5WtyfRU1NZogJiAjkxc5MSDmh76K6A">
 
 		<!-- Custom styles for this template -->
 		<link href="cover.css" rel="stylesheet">
@@ -72,7 +72,7 @@ $ipfs = new IPFS("localhost");
 					<div class="masthead clearfix">
 						<div class="inner">
 							<div id="mastheadBackground" style="display: none;" ></div>
-							<h3 class="masthead-brand"><img src="//ipfs.pics/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></img></h3>
+							<h3 class="masthead-brand"><img src="/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></img></h3>
 							<nav>
 								<ul class="nav masthead-nav">
 									<li class="active"><a href="/">Upload</a></li>
@@ -124,11 +124,11 @@ $ipfs = new IPFS("localhost");
 					<br>
 					<div class="row">
 						<div class="col-md-6">
-							<a href="https://www.reddit.com/domain/ipfs.pics" target="_BLANK"><img src="https://ipfs.pics/ipfs/QmdixSJTJWUFuxctcRtHfrxqUqVKcrpyrWjFoojFSZkTZL" width=300/></a>
+							<a href="https://www.reddit.com/domain/ipfs.pics" target="_BLANK"><img src="/ipfs/QmdixSJTJWUFuxctcRtHfrxqUqVKcrpyrWjFoojFSZkTZL" width=300/></a>
 							<br>
 						</div>
 						<div class="col-md-6">
-							<a href="https://www.voat.co/domains/ipfs.pics" target="_BLANK"><img src="https://ipfs.pics/ipfs/Qmduj4VjKMMWRLwxcrHugxCTWD1cZ66iiKTeW2JGRZtY9u" height=125 /></a>
+							<a href="https://www.voat.co/domains/ipfs.pics" target="_BLANK"><img src="/ipfs/Qmduj4VjKMMWRLwxcrHugxCTWD1cZ66iiKTeW2JGRZtY9u" height=125 /></a>
 						</div>
 					</div>
 
@@ -157,7 +157,7 @@ $ipfs = new IPFS("localhost");
 			}
 			$("#dropoff_image").change(function () {
 				$("#dropoff").submit();
-				$(".cover").html("<img src='//ipfs.pics/ipfs/QmPYVGMVjPSkz6bQaAFChBtigMb4WPGC922tLsZcAe3wvN'/>");
+				$(".cover").html("<img src='/ipfs/QmPYVGMVjPSkz6bQaAFChBtigMb4WPGC922tLsZcAe3wvN'/>");
 			});
 
 			$("#about").hide();
