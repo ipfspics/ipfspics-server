@@ -41,7 +41,7 @@ $db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_p
 $hostname = $_SERVER['HTTP_HOST'];
 
 define("defaultTitle", "A picture hosted on the permanent web");
-define("defaultThumbnail", "https://ipfs.pics/ipfs/$hash");
+define("defaultThumbnail", "/ipfs/$hash");
 define("defaultDescription", "Click to see it");
 
 $info = $db->query("SElECT * FROM hash_info WHERE hash='$hash'")->fetch();
@@ -84,7 +84,7 @@ if ($isDir and !$isBanned and $isBackendWorking) {
 		$title = $ipfs->cat($firstElementHash);
 		foreach ( $dirContent as $e ) {
 			if ($e['Size'] > 400) {
-				$thumbnail = "https://ipfs.pics/ipfs/" . $e['Hash'];
+				$thumbnail = "/ipfs/" . $e['Hash'];
 				break;
 			}	
 		}	
@@ -96,7 +96,7 @@ if ($isDir and !$isBanned and $isBackendWorking) {
 		}	
 	} else {
 		$title = 'A photo album hosted on the permanent web';
-		$thumbnail = "https://ipfs.pics/ipfs/$firstElementHash";
+		$thumbnail = "/ipfs/$firstElementHash";
 	}
 }
 
@@ -118,7 +118,7 @@ $score = $score['score'];
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<link rel="icon" href="//ipfs.pics/static/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:site" content="@IpfsPics">
 		<meta property="og:image" content="<?php echo $thumbnail ?>">
@@ -128,7 +128,7 @@ $score = $score['score'];
 		<meta name="twitter:description" content="<?php echo $description ?>">
 
 		<meta name="description" content="<?php echo $description ?>">
-		<link rel="canonical" href="https://ipfs.pics/<?php echo $hash ?>" />
+		<link rel="canonical" href="/<?php echo $hash ?>" />
 
 		<html itemscope itemtype="http://schema.org/Thing">
 		<meta itemprop="image" content="<?php echo $thumbnail ?>">
@@ -182,7 +182,7 @@ $score = $score['score'];
 					<div id="masthead" class="masthead clearfix">
 						<div id="mastheadBackground" style="display: none;" ></div>
 						<div class="inner">
-							<h3 class="masthead-brand"><a href="/"><img src="//ipfs.pics/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></img></a></h3>
+							<h3 class="masthead-brand"><a href="/"><img src="/ipfs/QmNvuHJbTHafrABhitFcQ5srv7FeCfHr6jFiyoHhuRh8wK"></img></a></h3>
 							<nav>
 								<ul class="nav masthead-nav">
 									<li><a href="/">Upload</a></li>
@@ -281,9 +281,9 @@ $score = $score['score'];
 							<a target="_BLANK" href="https://m.do.co/c/f2c62d7220f1"><div id="DOad"></div></a>
 							<script>
 							if(window.matchMedia("only screen and (max-width: 760px)").matches) {
-								$("#DOad").prepend('<img src="https://ipfs.pics/ipfs/QmThGLcq9i39r3b1jP9Pi2YoKPpfy7ehu6etaVkindN9i6" />')
+								$("#DOad").prepend('<img src="/ipfs/QmThGLcq9i39r3b1jP9Pi2YoKPpfy7ehu6etaVkindN9i6" />')
 							} else {
-								$("#DOad").prepend('<img src="https://ipfs.pics/ipfs/QmZ98g31Wm3ypmPu14rj52Zz3jF457neEwZPKWdrtUWbLA" />')
+								$("#DOad").prepend('<img src="/ipfs/QmZ98g31Wm3ypmPu14rj52Zz3jF457neEwZPKWdrtUWbLA" />')
 							}
 							</script>
 						<?php } ?>
@@ -301,7 +301,7 @@ $score = $score['score'];
 										?>
 										<li id="underMenuDownload" role="presentation" class="underMenuButton disabled"><a href="#">Download</a></li>
 									<?php } else { ?>
-										<li id="underMenuDownload"  role="presentation" class="underMenuButton "><a href="//ipfs.pics/ipfs/<?php echo $hash ?>?dl=1" target="_BLANK">Download</a></li>
+										<li id="underMenuDownload"  role="presentation" class="underMenuButton "><a href="/ipfs/<?php echo $hash ?>?dl=1" target="_BLANK">Download</a></li>
 									<?php } ?>
 
 									<a class="btn btn-primary btn-sm btn-social" href="http://www.facebook.com/sharer.php?u=https://ipfs.pics/<?php echo $hash; ?>" target="_BLANK"><i class="fa fa-facebook fa-2x"></i></a>
