@@ -1,0 +1,12 @@
+[Unit]
+Description=IPFS daemon
+After=network.target auditd.service
+
+[Service]
+ExecStart=/usr/local/bin/ipfs daemon
+User=ubuntu
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
