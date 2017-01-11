@@ -258,10 +258,6 @@ $score = $score['score'];
 						</div>
 					</div> 					
 					<div id="ads">
-						<?php 
-						if ($isSafe) {
-
-						?>
 							<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 							<!-- preview responsive -->
 							<ins class="adsbygoogle"
@@ -277,16 +273,6 @@ $score = $score['score'];
 							}
 							(adsbygoogle = window.adsbygoogle || []).push({});
 							</script>
-						<?php } else { ?>
-							<a target="_BLANK" href="https://m.do.co/c/f2c62d7220f1"><div id="DOad"></div></a>
-							<script>
-							if(window.matchMedia("only screen and (max-width: 760px)").matches) {
-								$("#DOad").prepend('<img src="/ipfs/QmThGLcq9i39r3b1jP9Pi2YoKPpfy7ehu6etaVkindN9i6" />')
-							} else {
-								$("#DOad").prepend('<img src="/ipfs/QmZ98g31Wm3ypmPu14rj52Zz3jF457neEwZPKWdrtUWbLA" />')
-							}
-							</script>
-						<?php } ?>
 					</div>
 					<div class="underMenu">
 						<div class="panel panel-default">
