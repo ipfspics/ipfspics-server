@@ -16,10 +16,12 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-error_reporting(0);
+error_reporting(1);
 
-include "../pswd.php";
-include "../app/class/ipfs.class.php";
+require __DIR__ . '/../vendor/autoload.php';
+include __DIR__ ."/../pswd.php";
+
+use Cloutier\PhpIpfsApi\IPFS;
 
 print("gc \n \n");
 
