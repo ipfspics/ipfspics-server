@@ -44,7 +44,7 @@ Yes, we make available our ipfs node as a bootstrap node:
 
 ``` ipfs bootstrap add /ip4/45.55.151.20/tcp/4001/ipfs/QmdkJZUWnVkEc6yfptVu4LWY8nHkEnGwsxqQ233QSGj8UP ```
 
-# Licence
+# License
 
 This program is free software: you can redistribute it and/or modify
     it under the terms of the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.html) as
