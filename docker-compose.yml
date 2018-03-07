@@ -1,14 +1,18 @@
-version: '2'
+version: '3'
 services:
   web:
+    container_name: "web"
     build: .
+    expose:
+    - 5000
     ports:
-    - "5000:80"
+    - 5000:80
     volumes:
     - logvolume01:/var/log
     links:
       - ipfs
   ipfs:
+    container_name: "ipfs"
     image: ipfs/go-ipfs
     volumes:
       - ~/.ipfs/:/data/ipfs/
