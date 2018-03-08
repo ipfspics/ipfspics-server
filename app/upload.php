@@ -34,19 +34,13 @@ if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
 	$protocol = "http";
 }
 
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
-$uploadsInLastHour = $db->query("SELECT COUNT(*) FROM hash_info WHERE first_seen > UNIX_TIMESTAMP() - 3600")->fetch();
+$image = $_FILES['img']['tmp_name'];
+$fo = fopen($_FILES['img']['tmp_name'], "r");
+$imageContent =  fread($fo, filesize($image));
+$hash = $ipfs->add($imageContent);
 
-if ($uploadsInLastHour[0] < 100) {
-
-	$image = $_FILES['img']['tmp_name'];
-	$fo = fopen($_FILES['img']['tmp_name'], "r");
-	$imageContent =  fread($fo, filesize($image));
-	$hash = $ipfs->add($imageContent);
-} else {
-	$hash = $errorHash;
-}
 if ($hash == "") {
 	$hash = $errorHash;
 }
+
 header("Location: $protocol://$host/$hash#new"  );
