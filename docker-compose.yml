@@ -12,15 +12,11 @@ services:
     image: ipfs/go-ipfs
     volumes:
       - /tmp/ipfs/:/data/ipfs/
-  mariadb:
-    image: mariadb
-    environment:
-      - MYSQL_ROOT_PASSWORD=patate12345
-      - MYSQL_DATABASE=ipfspics
+  mongo:
+    image: mongo
     volumes:
       - ./tmp/database:/var/lib/mysql
-    container_name: "mariadb"
-    image: mariadb
+    container_name: "mongo"
   web:
     container_name: "web"
     build: .
@@ -33,7 +29,7 @@ services:
     - ./app:/var/www/html/app
     links:
       - ipfs
-      - mariadb
+      - mongo
 volumes:
   logvolume01: {}
 

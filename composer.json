@@ -1,7 +1,8 @@
 {
     "license": "AGPLv3+",
     "require": {
-	"cloutier/php-ipfs-api": "dev-master",
-        "google/cloud": "^0.20.2"
+	    "cloutier/php-ipfs-api": "dev-master",
+        "google/cloud": "^0.20.2",
+        "mongodb/mongodb": "^1.3"
     }
 }

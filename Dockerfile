@@ -3,7 +3,8 @@ FROM ubuntu:16.04
 MAINTAINER vincent@cloutier.co
 
 WORKDIR /var/www/html/
-RUN apt update && apt install -y apache2 libapache2-mod-php7.0 php7.0 php7.0-xml php7.0-zip php7.0-curl php7.0-cli php7.0-pdo php7.0-mysql composer
+RUN apt update && apt install -y apache2 libapache2-mod-php7.0 php7.0 php7.0-dev php7.0-xml php7.0-zip php7.0-curl php7.0-cli composer
+RUN pecl install mongodb && echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
