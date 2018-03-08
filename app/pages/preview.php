@@ -22,6 +22,7 @@ include __DIR__ ."/../../pswd.php";
 require __DIR__ . '/../../vendor/autoload.php';
 
 use Cloutier\PhpIpfsApi\IPFS;
+use MongoDB\Driver\Manager;
 
 $ipfs = new IPFS("ipfs");
 
@@ -34,41 +35,38 @@ if( !isset($_GET['hash']) ) {
 		exit("wrong hash");
 	}
 }
-/*
-$db = new PDO('mysql:host=mariadb;dbname=ipfspics;charset=utf8', "root", "patate12345", array(
-    PDO::ATTR_PERSISTENT => true
-));
-$hostname = $_SERVER['HTTP_HOST'];
- */
+
+$mongo = new MongoDB\Client("mongodb://mongo:27017");
+$db = $mongo->ipfspics;
+
 define("defaultTitle", "A picture hosted on the permanent web");
 define("defaultThumbnail", "/ipfs/$hash");
 define("defaultDescription", "Click to see it");
 
-//$info = $db->query("SElECT * FROM hash_info WHERE hash='$hash'")->fetch();
+$info = $db->hashes->findOne(["hash"=> $hash]);
 
 if ( $info['hash'] ) {
 	$dirContent = $ipfs->ls($hash);
 	$isDir = ($dirContent[0]['Name'] != "");
-	$isBanned = $info['banned'];
+	$isBanned = $info['isBanned'];
 	$isBackendWorking = True;
-	$isSafe = $info['sfw'];
+	$isSafe = $info['isSafe'];
+	$score = $info['score'];
 } else {
 	$isBanned = false;
 	$isSafe = false;
 	$dirContent = $ipfs->ls($hash);
 	$isBackendWorking = $dirContent != "";
 	$isDir = ($dirContent[0]['Name'] != "");
+	$score = 0;
 	if ($isDir) {
 		$type = "dir";
 	} else {
 		$type = "file";
 	}
 	if($dirContent != "") {
-/*		$add = $db->prepare("INSERT INTO hash_info (hash, type, first_seen) VALUES (:hash, :type, UNIX_TIMESTAMP())");
-		$add->bindParam(":hash", $hash);
-		$add->bindParam(":type", $type);
-		$add->execute();
-		$ipfs->pinAdd($hash);*/
+		$add = $db->hashes->insertOne(["hash" => $hash, "type" => $isDir, "isSafe" => $isSafe, "isBanned" => $isBanned, "score" => 0]);
+		//$ipfs->pinAdd($hash);
 	}
 }
 
@@ -108,10 +106,6 @@ if ($isBanned) {
 $title = sanitize($title);
 $description = sanitize($description);
 
-
-
-//$score = $db->query("SELECT ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = '$hash')-(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = '$hash')) score;")->fetch();
-//$score = $score['score'];
 ?>
 <html lang="en">
 	<head>

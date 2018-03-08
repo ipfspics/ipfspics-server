@@ -17,6 +17,10 @@ services:
     volumes:
       - ./tmp/database:/var/lib/mysql
     container_name: "mongo"
+    expose:
+    - 27019
+    ports:
+    - 27019:27017
   web:
     container_name: "web"
     build: .
