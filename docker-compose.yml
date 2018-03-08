@@ -1,5 +1,26 @@
 version: '3'
 services:
+  ipfs:
+    container_name: "ipfs"
+    expose:
+    - 4001
+    - 8080
+    ports:
+    - 4001:4001
+    - 5001:5001
+    - 8080:8080
+    image: ipfs/go-ipfs
+    volumes:
+      - ~/.ipfs/:/data/ipfs/
+  mariadb:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=patate12345
+      - MYSQL_DATABASE=ipfspics
+    volumes:
+      - ./tmp/database:/var/lib/mysql
+    container_name: "mariadb"
+    image: mariadb
   web:
     container_name: "web"
     build: .
@@ -9,13 +30,10 @@ services:
     - 5000:80
     volumes:
     - logvolume01:/var/log
+    - ./app:/var/www/html/app
     links:
       - ipfs
-  ipfs:
-    container_name: "ipfs"
-    image: ipfs/go-ipfs
-    volumes:
-      - ~/.ipfs/:/data/ipfs/
+      - mariadb
 volumes:
   logvolume01: {}
 

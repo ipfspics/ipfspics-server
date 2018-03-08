@@ -23,7 +23,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Cloutier\PhpIpfsApi\IPFS;
 
-$ipfs = new IPFS("localhost");
+$ipfs = new IPFS("ipfs");
 
 $errorHash = "QmW3FgNGeD46kHEryFUw1ftEUqRw254WkKxYeKaouz7DJA";
 $host = $_SERVER['HTTP_HOST'];

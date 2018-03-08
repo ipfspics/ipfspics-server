@@ -20,7 +20,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Cloutier\PhpIpfsApi\IPFS;
 
-$ipfs = new IPFS("localhost");
+$ipfs = new IPFS("ipfs");
 
 ?>
 <html lang="en">

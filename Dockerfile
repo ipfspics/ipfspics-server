@@ -2,7 +2,8 @@ FROM ubuntu:16.04
 
 MAINTAINER vincent@cloutier.co
 
-RUN apt update && apt install -y apache2 libapache2-mod-php7.0 php7.0 php7.0-xml php7.0-curl php7.0-cli php7.0-pdo php7.0-mysql
+WORKDIR /var/www/html/
+RUN apt update && apt install -y apache2 libapache2-mod-php7.0 php7.0 php7.0-xml php7.0-zip php7.0-curl php7.0-cli php7.0-pdo php7.0-mysql composer
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
@@ -19,5 +20,6 @@ ENTRYPOINT ["apache2ctl", "-D", "FOREGROUND"]
 
 EXPOSE 80
 
-ADD . /var/www/html/
+ADD . .
 RUN chmod -R 775 /var/www/
+RUN composer install
