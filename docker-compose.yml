@@ -11,7 +11,7 @@ services:
     - 8080:8080
     image: ipfs/go-ipfs
     volumes:
-      - ~/.ipfs/:/data/ipfs/
+      - /tmp/ipfs/:/data/ipfs/
   mariadb:
     image: mariadb
     environment:

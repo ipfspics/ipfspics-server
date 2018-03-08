@@ -25,24 +25,15 @@ You can open an issue if you have a question not listed here.
 
 ## Can I install ipfs.pics on my own server?
 
-Yes you can! [Installation instructions](https://github.com/ipfspics/ipfspics-server/wiki/How-to-install-ipfs.pics-on-LAMP-(recommended)) are available in the project wiki. You can do whatever you want with the code, as long as you give a link to your code to your users. See the licence for more details. 
+Yes you can! You can do whatever you want with the code, as long as you give a link to your code to your users. See the licence for more details. 
 
-Docker support for simpler installs is being worked on. 
+`docker-compose up` should do the trick.
 
 ## What stops people from adding a bunch of junk on ipfs until the network is full?
 
 IPFS does not work like that. Each computer is responsible for what it chooses to make available to the rest of the network, and you can't force a computer to store something it doesn't want to store. We make sure that everything you upload to the official ipfs.pics instance is distributed on multiple computers. We have also heard of a few people who redirect to their own instance to make sure the content they care about stays alive. 
 
 If it's still unclear, you can learn more about IPFS [here](https://github.com/ipfs/ipfs). 
-## How can I administrate my instance?
-
-There is an [administration tool](https://github.com/ipfspics/administration-desktop) to allow you to review uploads on your ipfs.pics server.
-
-## Do you contribute back to the network in any other way?
-
-Yes, we make available our ipfs node as a bootstrap node:
-
-``` ipfs bootstrap add /ip4/45.55.151.20/tcp/4001/ipfs/QmdkJZUWnVkEc6yfptVu4LWY8nHkEnGwsxqQ233QSGj8UP ```
 
 # Licence
 

@@ -34,17 +34,17 @@ if( !isset($_GET['hash']) ) {
 		exit("wrong hash");
 	}
 }
-
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
+/*
+$db = new PDO('mysql:host=mariadb;dbname=ipfspics;charset=utf8', "root", "patate12345", array(
     PDO::ATTR_PERSISTENT => true
 ));
 $hostname = $_SERVER['HTTP_HOST'];
-
+ */
 define("defaultTitle", "A picture hosted on the permanent web");
 define("defaultThumbnail", "/ipfs/$hash");
 define("defaultDescription", "Click to see it");
 
-$info = $db->query("SElECT * FROM hash_info WHERE hash='$hash'")->fetch();
+//$info = $db->query("SElECT * FROM hash_info WHERE hash='$hash'")->fetch();
 
 if ( $info['hash'] ) {
 	$dirContent = $ipfs->ls($hash);
@@ -64,11 +64,11 @@ if ( $info['hash'] ) {
 		$type = "file";
 	}
 	if($dirContent != "") {
-		$add = $db->prepare("INSERT INTO hash_info (hash, type, first_seen) VALUES (:hash, :type, UNIX_TIMESTAMP())");
+/*		$add = $db->prepare("INSERT INTO hash_info (hash, type, first_seen) VALUES (:hash, :type, UNIX_TIMESTAMP())");
 		$add->bindParam(":hash", $hash);
 		$add->bindParam(":type", $type);
 		$add->execute();
-		$ipfs->pinAdd($hash);
+		$ipfs->pinAdd($hash);*/
 	}
 }
 
@@ -110,8 +110,8 @@ $description = sanitize($description);
 
 
 
-$score = $db->query("SELECT ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = '$hash')-(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = '$hash')) score;")->fetch();
-$score = $score['score'];
+//$score = $db->query("SELECT ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = '$hash')-(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = '$hash')) score;")->fetch();
+//$score = $score['score'];
 ?>
 <html lang="en">
 	<head>
@@ -220,7 +220,7 @@ $score = $score['score'];
 						<div class="picture-wrapper">
 							<?php
 							 if (!$isDir and !$isBanned and $isBackendWorking) { 
-								echo "<img src='//$hostname/ipfs/$hash' class='picture'></img>";
+								echo "<img src='/ipfs/$hash' class='picture'></img>";
 							} 
 
 							if ($isDir and !$isBanned and $isBackendWorking) {
