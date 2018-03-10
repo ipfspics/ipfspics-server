@@ -22,6 +22,8 @@ services:
     ports:
     - 27019:27017
   web:
+    environment:
+      - IPFSPICS_DB=${IPFSPICS_DB}
     container_name: "web"
     build: .
     expose:

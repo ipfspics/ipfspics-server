@@ -20,6 +20,7 @@ ADD docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 ENTRYPOINT ["apache2ctl", "-D", "FOREGROUND"]
 
 EXPOSE 80
+ENV IPFSPICS_DB localhost:27017
 
 ADD . .
 RUN chmod -R 775 /var/www/
