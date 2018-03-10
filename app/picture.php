@@ -21,11 +21,12 @@ require __DIR__ . '/../vendor/autoload.php';
 include __DIR__ ."/../pswd.php";
 
 use Cloutier\PhpIpfsApi\IPFS;
-/*
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
-    PDO::ATTR_PERSISTENT => true
-));
- */
+use MongoDB\Driver\Manager;
+
+$mongo = new MongoDB\Client("mongodb://mongo:27017");
+$db = $mongo->ipfspics;
+
+
 $fallbacks = array("https://ipfs.io");
 
 if ( !isset($_GET['hash']) ) {
@@ -41,7 +42,9 @@ if ( !isset($_GET['hash']) ) {
 
 $ipfs = new IPFS("ipfs", "8080", "5001");
 
-//$db->prepare("UPDATE hash_info SET nb_views = nb_views + 1 WHERE hash = '". $hash ."';")->execute();
+$info = $db->hashes->findOne(["hash"=> $hash]);
+
+$db->hashes->updateOne(["hash" => $hash], ['$inc' => ["views"=> 1]]);
 
 $imageContent = $ipfs->cat($hash);
 
