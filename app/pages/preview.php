@@ -16,9 +16,8 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-error_reporting(0);
+error_reporting(-1);
 
-include __DIR__ ."/../../pswd.php";
 require __DIR__ . '/../../vendor/autoload.php';
 
 use Cloutier\PhpIpfsApi\IPFS;
@@ -36,7 +35,12 @@ if( !isset($_GET['hash']) ) {
 	}
 }
 
-$mongo = new MongoDB\Client("mongodb://mongo:27017");
+if (getenv('IPFSPICS_DB')) {
+	$mongo = new MongoDB\Client(getenv('IPFSPICS_DB'));
+} else {
+	$mongo = new MongoDB\Client("mongodb://localhost:27017");
+}
+
 $db = $mongo->ipfspics;
 
 define("defaultTitle", "A picture hosted on the permanent web");
