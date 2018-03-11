@@ -23,7 +23,12 @@ include __DIR__ ."/../pswd.php";
 use Cloutier\PhpIpfsApi\IPFS;
 use MongoDB\Driver\Manager;
 
-$mongo = new MongoDB\Client("mongodb://mongo:27017");
+if (getenv('IPFSPICS_DB')) {
+	        $mongo = new MongoDB\Client(getenv('IPFSPICS_DB'));
+} else {
+	        $mongo = new MongoDB\Client("mongodb://localhost:27017");
+}
+
 $db = $mongo->ipfspics;
 
 
