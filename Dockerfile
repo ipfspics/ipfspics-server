@@ -1,10 +1,18 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 MAINTAINER vincent@cloutier.co
 
 WORKDIR /var/www/html/
-RUN apt update && apt install -y apache2 libapache2-mod-php7.0 php7.0 php7.0-dev php7.0-xml php7.0-zip php7.0-curl php7.0-cli php-mongodb composer
-#RUN pecl install mongodb && echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+ENV TZ 'Europe/Tallinn'
+RUN echo $TZ > /etc/timezone && \
+    apt-get update && apt-get install -y tzdata && \
+    rm /etc/localtime && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata && \
+    apt-get clean
+
+RUN apt update && apt install -y apache2 libapache2-mod-php7.2 php7.2 php7.2-dev php7.2-xml php7.2-zip php7.2-curl php7.2-cli openssl composer
+RUN pecl install mongodb && echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data

@@ -21,9 +21,8 @@ require __DIR__ . '/../vendor/autoload.php';
 include __DIR__ ."/../pswd.php";
 
 use Cloutier\PhpIpfsApi\IPFS;
-use MongoDB\Driver\Manager;
 
-if (getenv('IPFSPICS_DB')) {
+if (getenv('IPFSPICS_DB') != "") {
 	        $mongo = new MongoDB\Client(getenv('IPFSPICS_DB'));
 } else {
 	        $mongo = new MongoDB\Client("mongodb://localhost:27017");
