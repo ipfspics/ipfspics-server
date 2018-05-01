@@ -11,8 +11,8 @@ RUN echo $TZ > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata && \
     apt-get clean
 
-RUN apt update && apt install -y apache2 libapache2-mod-php7.2 php7.2 php7.2-dev php7.2-xml php7.2-zip php7.2-curl php7.2-cli openssl composer
-RUN pecl install mongodb && echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+RUN apt update && apt install -y apache2 libapache2-mod-php7.2 php7.2 php7.2-dev php7.2-xml php7.2-zip php7.2-curl php7.2-cli openssl composer libcurl4-openssl-dev pkg-config libssl-dev
+RUN pecl install mongodb && echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"` && echo "extension=mongodb.so" >> /etc/php/7.2/apache2/php.ini
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
