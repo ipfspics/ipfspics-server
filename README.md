@@ -25,9 +25,13 @@ You can open an issue if you have a question not listed here.
 
 ## Can I install ipfs.pics on my own server?
 
-Yes you can! You can do whatever you want with the code, as long as you give a link to your code to your users. See the licence for more details. 
+Yes you can! You can do whatever you want with the code, as long as you give a link to your code to your users. See the licence for more details. You only need to do two easy steps to start hacking on this project:
 
-`docker-compose up` should do the trick.
+1. Install [docker compose](https://docs.docker.com/compose/install/)
+
+2. Run `docker-compose up` and everything ipfs.pics needs will be started
+
+You're done! ipfs.pics is running on http://localhost:5000
 
 ## What stops people from adding a bunch of junk on ipfs until the network is full?
 
