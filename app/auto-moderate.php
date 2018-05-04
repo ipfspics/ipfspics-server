@@ -19,7 +19,6 @@
 error_reporting(1);
 
 require __DIR__ . '/../vendor/autoload.php';
-include __DIR__ ."/../pswd.php";
 
 use Cloutier\PhpIpfsApi\IPFS;
 # Imports the Google Cloud client library
@@ -28,27 +27,34 @@ use Google\Cloud\Vision\VisionClient;
 # Your Google Cloud Platform project ID
 $projectId = $google_cloud_project;
 
-# Instantiates a client
-$vision = new VisionClient([
-    'projectId' => $projectId,
-    'keyFilePath' => '/var/www/html/cloud_auth.json'
-]);
-
 
 print("gc \n \n");
 
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd);
+if (getenv('IPFSPICS_DB') != "") {
+	        $mongo = new MongoDB\Client(getenv('IPFSPICS_DB'));
+} else {
+	        $mongo = new MongoDB\Client("mongodb://localhost:27017");
+}
+$db = $mongo->ipfspics;
 $ipfs = new IPFS("localhost", "8080", "5001");
 
+# Instantiates a client
+$vision = new VisionClient([
+    'projectId' => $projectId,
+    'keyFilePath' => '/etc/ipfspics/gcloud.key'
+]);
 
-$unmoderated = $db->query("SElECT * FROM hash_info WHERE banned = 0 AND sfw = 0 AND nsfw = 0;")->fetchAll();
+
+$unmoderated = $db->hashes->find(["isSafe"=> false]);
 
 foreach($unmoderated as $i) {
 	$hash = $i['hash'];
 	# The name of the image file to annotate
 	$fileName = "https://ipfs.pics/ipfs/" . $hash;
-echo $hash;
+    print( $hash);
+    print( "<br>");
 
+continue;
 	$content = file_get_contents($fileName);
 	if ($content) {
 		# Prepare the image to be annotated

@@ -18,7 +18,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 require __DIR__ . '/../vendor/autoload.php';
-include __DIR__ ."/../pswd.php";
 
 use Cloutier\PhpIpfsApi\IPFS;
 
