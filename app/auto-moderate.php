@@ -45,7 +45,7 @@ $vision = new VisionClient([
 ]);
 
 
-$unmoderated = $db->hashes->find(['gcloud.adult' => ['$exists'=> false], "views"=>  ['$exists'=> true]], ["sort"=> ["views"=> -1 ], "limit" => 1]);
+$unmoderated = $db->hashes->find(['gcloud.adult' => ['$exists'=> false], "views"=>  ['$exists'=> true]], ["sort"=> ["views"=> -1 ], "limit" => 10]);
 
 foreach($unmoderated as $i) {
 	$hash = $i['hash'];
@@ -70,6 +70,5 @@ foreach($unmoderated as $i) {
  
 		echo "Could not download hash: $hash \n";
 	}
-break;
 }
 
