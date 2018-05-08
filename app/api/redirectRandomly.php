@@ -17,7 +17,9 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-include __DIR__ ."/../../pswd.php";
+require __DIR__ . '/../../vendor/autoload.php';
+use Cloutier\PhpIpfsApi\IPFS;
+
 $host = $_SERVER['HTTP_HOST'];
 $hash = "Qma25ZSNbp9AdjrPczjzKYm7zUAdcu9jQZJXbsPiifW79M";
 
@@ -27,22 +29,19 @@ if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
 	$protocol = "http";
 }
 
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
-    PDO::ATTR_PERSISTENT => true
-));
+if (getenv('IPFSPICS_DB') != "") {
+	        $mongo = new MongoDB\Client(getenv('IPFSPICS_DB'));
+} else {
+	        $mongo = new MongoDB\Client("mongodb://localhost:27017");
+}
+$db = $mongo->ipfspics;
+$ipfs = new IPFS("localhost", "8080", "5001");
+$showables = $db->hashes->aggregate([
+	['$match'=> ['gcloud.adult' => "VERY_UNLIKELY"]],
+	['$sample'=> ['size'=> 1]]]);
 
-$hashesByScore = $db->query("SELECT hash, nb_views FROM hash_info WHERE sfw = 1 ORDER BY nb_views DESC;")->fetchAll();
-$worstScore = (int) $hashesByScore[sizeof($hashesByScore) - 1]['nb_views'];
-
-// Takes a random number between 1 and the equivalent of the sum of all scores when the values are shifted up so the lowest one is equal to zero.
-$randomTrigger = mt_rand(1, ((int) array_sum(array_column($hashesByScore, 'nb_views')) + abs($worstScore) * sizeof($hashesByScore)) );
-
-foreach ($hashesByScore as $e) {
-	$randomTrigger -= $e['nb_views'] + abs($worstScore);
-	if ($randomTrigger <= 0) {
-        	$hash = $e['hash'];
-		break;
-	}
+foreach ($showables as $i) {
+	$hash = $i['hash'];
 }
 
 header("Location: $protocol://$host/$hash#random");
