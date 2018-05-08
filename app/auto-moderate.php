@@ -45,16 +45,15 @@ $vision = new VisionClient([
 ]);
 
 
-$unmoderated = $db->hashes->find(["isSafe"=> false]);
+$unmoderated = $db->hashes->find(['gcloud.adult' => ['$exists'=> false], "views"=>  ['$exists'=> true]], ["sort"=> ["views"=> -1 ], "limit" => 1]);
 
 foreach($unmoderated as $i) {
 	$hash = $i['hash'];
 	# The name of the image file to annotate
-	$fileName = "https://ipfs.pics/ipfs/" . $hash;
+	$fileName = "https://ipfs.io/ipfs/" . $hash;
     print( $hash);
     print( "<br>");
 
-continue;
 	$content = file_get_contents($fileName);
 	if ($content) {
 		# Prepare the image to be annotated
@@ -65,10 +64,12 @@ continue;
 		# Performs label detection on the image file
 		$annotations = $vision->annotate($image);
 		$safe = $annotations->safeSearch();
-		echo $safe->adult();
+		$db->hashes->updateOne(["hash" => $hash], ['$set' => ["gcloud.adult"=> $safe->adult(), "gcloud.spoof"=> $safe->spoof(), "gcloud.medical"=> $safe->medical(), "gcloud.violence"=>$safe->violence(), "gcloud.racy"=> $safe->racy()]]);
+
 	} else {
  
-		print "Could now download hash: $hash \n";
+		echo "Could not download hash: $hash \n";
 	}
+break;
 }
 
