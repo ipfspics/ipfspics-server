@@ -46,17 +46,30 @@ if ( $info['hash'] ) {
 } else {
 	exit("unknown hash");
 }
-$votes = $db->votes->findOne(["hash" => $hash, "ip" => $ip]);
-print_r($votes);
-if ( $votes['hash'] ) {
-	$db->votes->updateOne(["hash"=> $hash, "ip" => $ip], ['$set' => ["type"=> $type, "timestamp" => time()]]);
+$vote = $db->votes->findOne(["hash" => $hash, "ip" => $ip]);
+if ( $vote['hash'] ) {
+	$db->votes->updateOne(["hash"=> $hash, "ip" => $ip], ['$set' => ["voteType"=> $type, "timestamp" => time()]]);
 
 	echo "success";	
 
 } else {
 
-	$db->votes->insertOne(["hash"=> $hash, "type" => $type, "ip" => $ip, "timestamp" => time()]);
+	$db->votes->insertOne(["hash"=> $hash, "voteType" => $type, "ip" => $ip, "timestamp" => time()]);
 
 	echo "success";
 }
 
+$votes = $db->votes->find(["hash" => $hash]);
+
+//TODO use this:
+//http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
+$score = 0;
+foreach ($votes as $vote) {
+	if($vote["voteType"] == "upvote") {
+		$score += 1;
+	} elseif ($vote["voteType"] == "downvote") {
+		$score -= 1;
+
+	}
+}
+$db->hashes->updateOne(["hash"=> $hash], ['$set' => ["score"=> $score]]);
