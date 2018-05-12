@@ -46,7 +46,7 @@ if ($_GET['timestamp'] == "") {
 if ($_GET['offset'] == "") {
 	$offset = 0;
 } else {
-	$offset = (int) $_GET['offset'];
+	$offset = (int) $_GET['offset'] + 1;
 }
 
 if ($_GET['page'] == "trending") {
@@ -66,7 +66,7 @@ if ($_GET['page'] == "trending") {
 	$picsToDisplay = $request->fetchAll(); 
 	$pageTitle = "Trending crypto kittens";
 } elseif ($_GET['page'] == "best") {
-	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_UNLIKELY", "views"=>  ['$exists'=> true]], ["sort"=> ["views"=> -1 ], "skip" => $offset + 1, "limit" => 10]);
+	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_UNLIKELY", "views"=>  ['$exists'=> true]], ["sort"=> ["score"=> -1 ], "skip" => $offset , "limit" => 10]);
 	$pageTitle = "Trending crypto kittens";
 } 
 if ($_GET['format'] == 'json') {
