@@ -17,7 +17,7 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-error_reporting(0);
+error_reporting(1);
 
 require __DIR__ . '/../../vendor/autoload.php';
 
@@ -25,12 +25,13 @@ use Cloutier\PhpIpfsApi\IPFS;
 
 $ipfs = new IPFS("ipfs");
 
-include __DIR__ ."/../../pswd.php";
+if (getenv('IPFSPICS_DB') != "") {
+                $mongo = new MongoDB\Client(getenv('IPFSPICS_DB'));
+} else {
+                $mongo = new MongoDB\Client("mongodb://localhost:27017");
+}
+$db = $mongo->ipfspics;
 
-
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
-    PDO::ATTR_PERSISTENT => true
-));
 
 $hostname = $_SERVER['HTTP_HOST'];
 $postPerPage = 9;
@@ -49,6 +50,9 @@ if ($_GET['offset'] == "") {
 }
 
 if ($_GET['page'] == "trending") {
+	$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
+	    PDO::ATTR_PERSISTENT => true
+	));
 	//Pictures are ordered by their lower bound of Wilson score confidence interval for a Bernoulli parameter
 	//Only the votes in the last four days count
 	//see http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
@@ -62,18 +66,8 @@ if ($_GET['page'] == "trending") {
 	$picsToDisplay = $request->fetchAll(); 
 	$pageTitle = "Trending crypto kittens";
 } elseif ($_GET['page'] == "best") {
-	//Pictures are ordered by their lower bound of Wilson score confidence interval for a Bernoulli parameter
-	//Here we take all the votes from all time.
-	//see http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
-	$request = $db->prepare("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + 1.9208) / (   (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ))   - 1.96 * SQRT(   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) * (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash )) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash )) + 0.9604) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ))) /  (1+3.8416 / ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash ) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ))) AS lower_bound, (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash)-(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash) AS score FROM hash_info WHERE type != 'dir' AND sfw = 1 HAVING (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash )+(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash ) > 0 ORDER BY lower_bound DESC LIMIT :lowerBound,:higherBound;");
-
-	$lowerBound = $offset;
-	$request->bindParam(":lowerBound", $lowerBound, PDO::PARAM_INT);
-	$higherBound = $offset + $postPerPage;
-	$request->bindParam(":higherBound", $higherBound, PDO::PARAM_INT);
-	$request->execute();
-	$picsToDisplay = $request->fetchAll();
-	$pageTitle = "Best pictures of all time";
+	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_UNLIKELY", "views"=>  ['$exists'=> true]], ["sort"=> ["views"=> -1 ], "skip" => $offset + 1, "limit" => 10]);
+	$pageTitle = "Trending crypto kittens";
 } 
 if ($_GET['format'] == 'json') {
 	echo json_encode($picsToDisplay);
@@ -155,7 +149,7 @@ if ($_GET['format'] == 'json') {
 						<?php
 						$turnForAds = 2;
 						foreach ($picsToDisplay as $pic) {
-							$hash = $pic['p_hash'];
+							$hash = $pic['hash'];
 							?>
 							<div class="picture-wrapper">
 								<img src="/ipfs/<?php echo $hash; ?>" class="picture" />
