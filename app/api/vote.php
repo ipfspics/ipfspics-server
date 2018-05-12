@@ -17,7 +17,8 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-include __DIR__ ."/../../pswd.php";
+
+require __DIR__ . '/../../vendor/autoload.php';
 if ( !isset($_GET['id']) or !isset($_GET['type']) ) {
 	exit("wrong params");
 } else {
@@ -30,38 +31,31 @@ if ( !isset($_GET['id']) or !isset($_GET['type']) ) {
 	}
 }
 
-$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
-    PDO::ATTR_PERSISTENT => true
-));
+if (getenv('IPFSPICS_DB') != "") {
+                $mongo = new MongoDB\Client(getenv('IPFSPICS_DB'));
+} else {
+                $mongo = new MongoDB\Client("mongodb://localhost:27017");
+}
+$db = $mongo->ipfspics;
+
 $ip=$_SERVER['REMOTE_ADDR'];
-$info = $db->query("SElECT hash FROM hash_info WHERE hash='$hash'")->fetch();
+$info = $db->hashes->findOne(["hash" => $hash]);
 
 if ( $info['hash'] ) {
 	$hash = $info['hash'];
 } else {
 	exit("unknown hash");
 }
-$votes = $db->query("SElECT * FROM votes WHERE hash='$hash' AND ip='$ip'")->fetch();
-
+$votes = $db->votes->findOne(["hash" => $hash, "ip" => $ip]);
+print_r($votes);
 if ( $votes['hash'] ) {
-	//already voted, we change the vote if one is not spamming
-	if ($votes['vote_type'] != $type) {
-		$add = $db->prepare("UPDATE votes SET vote_type = :type, timestamp = UNIX_TIMESTAMP() WHERE ip = :ip AND hash = :hash");
-		$add->bindParam(":hash", $hash);
-		$add->bindParam(":type", $type);
-		$add->bindParam(":ip", $ip);
-		$add->execute();
-	} 
+	$db->votes->updateOne(["hash"=> $hash, "ip" => $ip], ['$set' => ["type"=> $type, "timestamp" => time()]]);
 
 	echo "success";	
 
 } else {
 
-	$add = $db->prepare("INSERT INTO votes (hash, vote_type, ip, timestamp) VALUES (:hash, :type, :ip, UNIX_TIMESTAMP())");
-	$add->bindParam(":hash", $hash);
-	$add->bindParam(":type", $type);
-	$add->bindParam(":ip", $ip);
-	$add->execute();
+	$db->votes->insertOne(["hash"=> $hash, "type" => $type, "ip" => $ip, "timestamp" => time()]);
 
 	echo "success";
 }
