@@ -54,7 +54,7 @@ if ( $info['hash'] ) {
 	$isDir = ($dirContent[0]['Name'] != "");
 	$isBanned = $info['isBanned'];
 	$isBackendWorking = True;
-	$isSafe = $info['isSafe'];
+	$isSafe = ($info["gcloud"]["adult"] == "VERY_UNLIKELY") || false;
 	$score = $info['score'];
 } else {
 	$isBanned = false;
@@ -256,6 +256,9 @@ $description = sanitize($description);
 						</div>
 					</div> 					
 					<div id="ads">
+						<?php 
+							if ($isSafe) {
+						?>
 							<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 							<!-- preview responsive -->
 							<ins class="adsbygoogle"
@@ -271,6 +274,9 @@ $description = sanitize($description);
 							}
 							(adsbygoogle = window.adsbygoogle || []).push({});
 							</script>
+						<?php 
+							}
+						?>
 					</div>
 					<div class="underMenu">
 						<div class="panel panel-default">
