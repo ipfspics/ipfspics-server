@@ -45,7 +45,7 @@ $vision = new VisionClient([
 ]);
 
 
-$unmoderated = $db->hashes->find(['gcloud.adult' => ['$exists'=> false], "views"=>  ['$exists'=> true]], ["sort"=> ["views"=> -1 ], "limit" => 100]);
+$unmoderated = $db->hashes->find(['gcloud.adult' => ['$exists'=> false], "views"=>  ['$exists'=> true]], ["sort"=> ["views"=> -1 ], "limit" => 200]);
 
 foreach($unmoderated as $i) {
 	$hash = $i['hash'];

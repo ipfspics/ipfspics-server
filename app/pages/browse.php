@@ -50,23 +50,13 @@ if ($_GET['offset'] == "") {
 }
 
 if ($_GET['page'] == "trending") {
-	$db = new PDO('mysql:host=localhost;dbname=hashes;charset=utf8', $db_user, $db_pswd, array(
-	    PDO::ATTR_PERSISTENT => true
-	));
-	//Pictures are ordered by their lower bound of Wilson score confidence interval for a Bernoulli parameter
-	//Only the votes in the last four days count
-	//see http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
-	$request = $db->prepare("SELECT hash AS p_hash, (((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) + 1.9208) / (   (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200))   - 1.96 * SQRT(   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) * (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200)) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200)) + 0.9604) /   ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200))) /  (1+3.8416 / ((SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200) + (SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200))) AS lower_bound, (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash)-(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash) AS score FROM hash_info WHERE type != 'dir' AND sfw = 1 HAVING (SELECT COUNT(*) FROM votes WHERE vote_type = 'upvote' AND hash = p_hash AND timestamp > :timestamp - 259200)+(SELECT COUNT(*) FROM votes WHERE vote_type = 'downvote' AND hash = p_hash AND timestamp > :timestamp - 259200) > 0 ORDER BY lower_bound DESC LIMIT :lowerBound,:higherBound;");
-	$request->bindParam(":timestamp", $timestamp, PDO::PARAM_INT);
-	$lowerBound = $offset;
-	$request->bindParam(":lowerBound", $lowerBound, PDO::PARAM_INT);
-	$higherBound = $offset + $postPerPage;
-	$request->bindParam(":higherBound", $higherBound, PDO::PARAM_INT);
-	$request->execute();
-	$picsToDisplay = $request->fetchAll(); 
+	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_UNLIKELY", "views"=>  ['$exists'=> true]], ["sort"=> ["views"=> -1 ], "skip" => $offset , "limit" => 10]);
 	$pageTitle = "Trending crypto kittens";
 } elseif ($_GET['page'] == "best") {
 	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_UNLIKELY", "views"=>  ['$exists'=> true]], ["sort"=> ["score"=> -1 ], "skip" => $offset , "limit" => 10]);
+	$pageTitle = "Trending crypto kittens";
+} elseif ($_GET['page'] == "adult") {
+	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_LIKELY", "views"=>  ['$exists'=> true]], ["sort"=> ["score"=> -1 ], "skip" => $offset , "limit" => 10]);
 	$pageTitle = "Trending crypto kittens";
 } 
 if ($_GET['format'] == 'json') {
@@ -177,7 +167,7 @@ if ($_GET['format'] == 'json') {
 							<?php
 							$turnForAds++;
 							$turnForAds = $turnForAds % 7;
-							if ($turnForAds == 0) {
+							if ($_GET['page'] != "adult" && $turnForAds == 0) {
 								?>
 								<br>
 								<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

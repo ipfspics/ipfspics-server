@@ -5,6 +5,8 @@ RewriteRule ^trending/([0-9]+)/([0-9]+) pages/browse.php?page=trending&timestamp
 RewriteRule ^trending pages/browse.php?page=trending
 RewriteRule ^best/([0-9]+)/([0-9]+) pages/browse.php?page=best&timestamp=$1&offset=$2
 RewriteRule ^best pages/browse.php?page=best
+RewriteRule ^adult/([0-9]+)/([0-9]+) pages/browse.php?page=adult&timestamp=$1&offset=$2
+RewriteRule ^adult pages/browse.php?page=adult
 RewriteRule ^api/v1/upvote/Q([A-Za-z0-9-]+)$ api/vote.php?type=upvote&id=Q$1
 RewriteRule ^api/v1/downvote/Q([A-Za-z0-9-]+)$ api/vote.php?type=downvote&id=Q$1
 RewriteRule ^api/v1/report/Q([A-Za-z0-9-]+)$ api/vote.php?type=report&id=Q$1
