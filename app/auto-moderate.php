@@ -41,21 +41,23 @@ $ipfs = new IPFS("localhost", "8080", "5001");
 # Instantiates a client
 $vision = new VisionClient([
     'projectId' => $projectId,
-    'keyFilePath' => '/etc/ipfspics/gcloud.key'
+    'keyFilePath' => '/home/vincent/etc/ipfspics/gcloud.key'
 ]);
 
 
-$unmoderated = $db->hashes->find(['gcloud.adult' => ['$exists'=> false], "views"=>  ['$exists'=> true]], ["sort"=> ["views"=> -1 ], "limit" => 10]);
+$unmoderated = $db->hashes->find(['gcloud.adult' => ['$exists'=> false], "views"=>  ['$exists'=> true]], ["sort"=> ["views"=> -1 ], "limit" => 100]);
 
 foreach($unmoderated as $i) {
 	$hash = $i['hash'];
 	# The name of the image file to annotate
 	$fileName = "https://ipfs.io/ipfs/" . $hash;
     print( $hash);
-    print( "<br>");
+    print( "\n");
 
+    ini_set('default_socket_timeout', 2);
 	$content = file_get_contents($fileName);
-	if ($content) {
+    ini_set('default_socket_timeout', 20);
+	if ($content && is_picture($content)) {
 		# Prepare the image to be annotated
 		$image = $vision->image($content, [
 		    "SAFE_SEARCH_DETECTION"
@@ -63,8 +65,11 @@ foreach($unmoderated as $i) {
 
 		# Performs label detection on the image file
 		$annotations = $vision->annotate($image);
+		print_r( $annotations );
+		if (!$annotations->error() ) {
 		$safe = $annotations->safeSearch();
-		$db->hashes->updateOne(["hash" => $hash], ['$set' => ["gcloud.adult"=> $safe->adult(), "gcloud.spoof"=> $safe->spoof(), "gcloud.medical"=> $safe->medical(), "gcloud.violence"=>$safe->violence(), "gcloud.racy"=> $safe->racy()]]);
+			$db->hashes->updateOne(["hash" => $hash], ['$set' => ["gcloud.adult"=> $safe->adult(), "gcloud.spoof"=> $safe->spoof(), "gcloud.medical"=> $safe->medical(), "gcloud.violence"=>$safe->violence(), "gcloud.racy"=> $safe->racy()]]);
+		}
 
 	} else {
  
@@ -72,3 +77,7 @@ foreach($unmoderated as $i) {
 	}
 }
 
+function is_picture(&$pict)
+{
+    return (bin2hex($pict[0]) == 'ff' && bin2hex($pict[1]) == 'd8') || (bin2hex($pict[0]) == '89' && $pict[1] == 'P' && $pict[2] == 'N' && $pict[3] == 'G');
+}
