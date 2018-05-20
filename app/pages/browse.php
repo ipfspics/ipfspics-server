@@ -50,13 +50,13 @@ if ($_GET['offset'] == "") {
 }
 
 if ($_GET['page'] == "trending") {
-	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_UNLIKELY", "views"=>  ['$exists'=> true]], ["sort"=> ["views"=> -1 ], "skip" => $offset , "limit" => 10]);
+	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_UNLIKELY", "views"=>  ['$exists'=> true], "isBanned" => false], ["sort"=> ["views"=> -1 ], "skip" => $offset , "limit" => 10]);
 	$pageTitle = "Trending crypto kittens";
 } elseif ($_GET['page'] == "best") {
-	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_UNLIKELY", "views"=>  ['$exists'=> true]], ["sort"=> ["score"=> -1 ], "skip" => $offset , "limit" => 10]);
+	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_UNLIKELY", "views"=>  ['$exists'=> true], "isBanned" => false], ["sort"=> ["score"=> -1 ], "skip" => $offset , "limit" => 10]);
 	$pageTitle = "Trending crypto kittens";
 } elseif ($_GET['page'] == "adult") {
-	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_LIKELY", "views"=>  ['$exists'=> true]], ["sort"=> ["score"=> -1 ], "skip" => $offset , "limit" => 10]);
+	$picsToDisplay = $db->hashes->find(['gcloud.adult' => "VERY_LIKELY", "views"=>  ['$exists'=> true], "isBanned" => false], ["sort"=> ["score"=> -1 ], "skip" => $offset , "limit" => 10]);
 	$pageTitle = "Trending crypto kittens";
 } 
 if ($_GET['format'] == 'json') {
