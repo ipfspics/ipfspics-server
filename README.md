@@ -46,7 +46,7 @@ This program is free software: you can redistribute it and/or modify
     published by the Free Software Foundation, either version 3 of the
     License, or (at your option) any later version.
 
-The program also contains the following librairies:
+The program also contains the following libraries:
 
 * jQuery under the [MIT licence](https://github.com/jquery/jquery/blob/master/LICENSE.txt).
 
