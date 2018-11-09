@@ -29,7 +29,7 @@ if (getenv('IPFSPICS_DB') != "") {
 $db = $mongo->ipfspics;
 
 
-$fallbacks = array("https://ipfs.io");
+$fallbacks = array("https://cloudflare-ipfs.com", "https://ipfs.io");
 
 if ( !isset($_GET['hash']) ) {
 	$hash = "QmX6kHmFXsadTqLDMMnuV5dFqcGQAfNeKAArStw1BKqFW7";
