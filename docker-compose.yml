@@ -5,14 +5,12 @@ services:
     restart: always
     expose:
     - 4001
+    - 5001
     - 8080
     ports:
     - 4001:4001
-    - 5001:5001
     - 8080:8080
     image: ipfs/go-ipfs
-    volumes:
-      - ~/.ipfs/:/data/ipfs/
   mongo:
     image: mongo
     volumes:
@@ -20,9 +18,9 @@ services:
     container_name: "mongo"
     restart: always
     expose:
-    - 27019
+    - 27017
     ports:
-    - 27019:27017
+    - 27017:27017
   web:
     environment:
       - IPFSPICS_DB=${IPFSPICS_DB}
