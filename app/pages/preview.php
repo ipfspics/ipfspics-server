@@ -16,7 +16,6 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-error_reporting(0);
 
 require __DIR__ . '/../../vendor/autoload.php';
 
@@ -38,7 +37,7 @@ if( !isset($_GET['hash']) ) {
 if (getenv('IPFSPICS_DB')) {
 	$mongo = new MongoDB\Client(getenv('IPFSPICS_DB'));
 } else {
-	$mongo = new MongoDB\Client("mongodb://localhost:27017");
+	$mongo = new MongoDB\Client("mongodb://mongo:27017");
 }
 
 $db = $mongo->ipfspics;

@@ -13,9 +13,8 @@ services:
     image: ipfs/go-ipfs
   mongo:
     image: mongo
-    volumes:
-      - ./tmp/database:/var/lib/mysql
     container_name: "mongo"
+    command: mongod --bind_ip 0.0.0.0
     restart: always
     expose:
     - 27017

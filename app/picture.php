@@ -18,13 +18,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 require __DIR__ . '/../vendor/autoload.php';
-
 use Cloutier\PhpIpfsApi\IPFS;
 
 if (getenv('IPFSPICS_DB') != "") {
 	        $mongo = new MongoDB\Client(getenv('IPFSPICS_DB'));
 } else {
-	        $mongo = new MongoDB\Client("mongodb://localhost:27017");
+	        $mongo = new MongoDB\Client("mongodb://mongo:27017");
 }
 
 $db = $mongo->ipfspics;
