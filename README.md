@@ -1,4 +1,7 @@
 # ipfs.pics
+
+**(Notice January 2020) ipfs.pics is currently unmaintained. Nowadays, you can use the [ipfs companion](https://github.com/ipfs-shipyard/ipfs-companion) to share pictures with the world. It's just as easy to use, it is more decentralized, and it even works with any types of files!**
+
 [ipfs.pics](https://ipfs.pics/) is a open-source and distributed image hosting website.
 It aims to be an alternative to non-libre image hosting websites such as imgur, flickr and others.
 
